@@ -8,17 +8,26 @@ namespace Animall.App
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
-
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            decimal dineroInicial = 0;
+            using (var formDineroInicial = new DineroInicialForm())
+            {
+                if (formDineroInicial.ShowDialog() == DialogResult.OK)
+                {
+                    dineroInicial = formDineroInicial.DineroInicial;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            Application.Run(new Form1(dineroInicial));
         }
     }
 }
-

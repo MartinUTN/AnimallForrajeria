@@ -1,4 +1,7 @@
-﻿namespace Animall.App
+﻿// Proyecto: Animall.App
+// Archivo: Form1.Designer.cs
+
+namespace Animall.App
 {
     partial class Form1
     {
@@ -38,6 +41,8 @@
             lblCategoria = new Label();
             tabPageSalida = new TabPage();
             groupBoxSalida = new GroupBox();
+            lblTipoSalida = new Label();
+            cmbTipoSalida = new ComboBox();
             lblMotivoSalida = new Label();
             btnRegistrarSalida = new Button();
             cmbMotivoSalida = new ComboBox();
@@ -331,6 +336,8 @@
             // 
             groupBoxSalida.Anchor = AnchorStyles.None;
             groupBoxSalida.BackColor = Color.FromArgb(255, 250, 240);
+            groupBoxSalida.Controls.Add(lblTipoSalida);
+            groupBoxSalida.Controls.Add(cmbTipoSalida);
             groupBoxSalida.Controls.Add(lblMotivoSalida);
             groupBoxSalida.Controls.Add(btnRegistrarSalida);
             groupBoxSalida.Controls.Add(cmbMotivoSalida);
@@ -349,6 +356,28 @@
             groupBoxSalida.TabIndex = 29;
             groupBoxSalida.TabStop = false;
             groupBoxSalida.Text = "Registrar Salida de Dinero";
+            // 
+            // lblTipoSalida
+            // 
+            lblTipoSalida.AutoSize = true;
+            lblTipoSalida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblTipoSalida.ForeColor = Color.Black;
+            lblTipoSalida.Location = new Point(46, 267);
+            lblTipoSalida.Name = "lblTipoSalida";
+            lblTipoSalida.Size = new Size(110, 20);
+            lblTipoSalida.TabIndex = 10;
+            lblTipoSalida.Text = "Tipo de Salida:";
+            // 
+            // cmbTipoSalida
+            // 
+            cmbTipoSalida.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTipoSalida.Font = new Font("Segoe UI", 9F);
+            cmbTipoSalida.FormattingEnabled = true;
+            cmbTipoSalida.Location = new Point(46, 293);
+            cmbTipoSalida.Margin = new Padding(3, 4, 3, 4);
+            cmbTipoSalida.Name = "cmbTipoSalida";
+            cmbTipoSalida.Size = new Size(220, 28);
+            cmbTipoSalida.TabIndex = 2;
             // 
             // lblMotivoSalida
             // 
@@ -397,11 +426,11 @@
             // 
             numMontoSalida.DecimalPlaces = 2;
             numMontoSalida.Font = new Font("Segoe UI", 9F);
-            numMontoSalida.Location = new Point(46, 293);
+            numMontoSalida.Location = new Point(305, 293);
             numMontoSalida.Margin = new Padding(3, 4, 3, 4);
             numMontoSalida.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             numMontoSalida.Name = "numMontoSalida";
-            numMontoSalida.Size = new Size(171, 27);
+            numMontoSalida.Size = new Size(221, 27);
             numMontoSalida.TabIndex = 3;
             numMontoSalida.Enter += numMontoSalida_Enter;
             numMontoSalida.KeyDown += numMontoSalida_KeyDown;
@@ -411,7 +440,7 @@
             lblMontoSalida.AutoSize = true;
             lblMontoSalida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblMontoSalida.ForeColor = Color.Black;
-            lblMontoSalida.Location = new Point(46, 267);
+            lblMontoSalida.Location = new Point(305, 267);
             lblMontoSalida.Name = "lblMontoSalida";
             lblMontoSalida.Size = new Size(60, 20);
             lblMontoSalida.TabIndex = 7;
@@ -435,7 +464,7 @@
             txtOtroMotivo.Margin = new Padding(3, 4, 3, 4);
             txtOtroMotivo.Name = "txtOtroMotivo";
             txtOtroMotivo.Size = new Size(479, 27);
-            txtOtroMotivo.TabIndex = 2;
+            txtOtroMotivo.TabIndex = 1;
             txtOtroMotivo.KeyDown += txtOtroMotivo_KeyDown;
             // 
             // cmbDetalleSalida
@@ -711,6 +740,8 @@
         private System.Windows.Forms.TextBox txtOtroMotivo;
         private System.Windows.Forms.ComboBox cmbDetalleSalida;
         private System.Windows.Forms.TextBox txtProveedor;
-
+        private System.Windows.Forms.Label lblTipoSalida;
+        private System.Windows.Forms.ComboBox cmbTipoSalida;
     }
 }
+

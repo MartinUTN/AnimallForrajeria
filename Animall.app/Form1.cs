@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using System.Diagnostics;
 
 namespace Animall.App
 {
@@ -15,12 +17,14 @@ namespace Animall.App
     {
         private Venta _ventaActual;
         private ReporteDiario _reporteDiario;
+        private decimal _dineroInicial;
 
-        public Form1()
+        public Form1(decimal dineroInicial)
         {
             InitializeComponent();
+            _dineroInicial = dineroInicial;
             _ventaActual = new Venta();
-            _reporteDiario = new ReporteDiario();
+            _reporteDiario = new ReporteDiario { DineroInicial = _dineroInicial };
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -158,6 +162,15 @@ namespace Animall.App
             cmbMotivoSalida.DisplayMember = "Display";
             cmbMotivoSalida.ValueMember = "Value";
 
+            var tiposSalida = Enum.GetValues(typeof(TipoSalida))
+                .Cast<TipoSalida>()
+                .Select(t => new { Display = SalidaDinero.ObtenerNombreAmigable(t), Value = t })
+                .ToList();
+
+            cmbTipoSalida.DataSource = tiposSalida;
+            cmbTipoSalida.DisplayMember = "Display";
+            cmbTipoSalida.ValueMember = "Value";
+
             numMontoSalida.DecimalPlaces = 2;
             numMontoSalida.Maximum = 1000000;
         }
@@ -244,13 +257,12 @@ namespace Animall.App
 
         private void RegistrarSalida()
         {
-            if (cmbMotivoSalida.SelectedValue == null || (MotivoSalida)cmbMotivoSalida.SelectedValue == (MotivoSalida)(-1))
+            if (cmbMotivoSalida.SelectedValue is not MotivoSalida motivo || motivo == (MotivoSalida)(-1))
             {
                 MessageBox.Show("Debe seleccionar un motivo.", "Dato Faltante", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            var motivo = (MotivoSalida)cmbMotivoSalida.SelectedValue;
             var monto = numMontoSalida.Value;
             if (monto <= 0)
             {
@@ -258,18 +270,20 @@ namespace Animall.App
                 return;
             }
 
+            var tipoSalida = (TipoSalida)cmbTipoSalida.SelectedValue;
             string detalle = "";
+
             switch (motivo)
             {
                 case MotivoSalida.Sueldo:
                 case MotivoSalida.Impuestos:
                 case MotivoSalida.Publicidad:
-                    if (cmbDetalleSalida.SelectedItem == null)
+                    detalle = cmbDetalleSalida.SelectedItem?.ToString() ?? string.Empty;
+                    if (string.IsNullOrEmpty(detalle))
                     {
                         MessageBox.Show("Debe seleccionar un detalle.", "Dato Faltante", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
-                    detalle = cmbDetalleSalida.SelectedItem.ToString() ?? "";
                     break;
                 case MotivoSalida.Proveedor:
                     if (string.IsNullOrWhiteSpace(txtProveedor.Text))
@@ -280,11 +294,11 @@ namespace Animall.App
                     detalle = txtProveedor.Text;
                     break;
                 case MotivoSalida.Otro:
-                    detalle = txtOtroMotivo.Text ?? "";
+                    detalle = txtOtroMotivo.Text;
                     break;
             }
 
-            var nuevaSalida = new SalidaDinero(motivo, detalle, monto);
+            var nuevaSalida = new SalidaDinero(motivo, detalle, monto, tipoSalida);
             _reporteDiario.AgregarMovimiento(nuevaSalida);
             ActualizarVistaReporte();
             MessageBox.Show("Salida de dinero registrada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -295,6 +309,7 @@ namespace Animall.App
         {
             cmbMotivoSalida.SelectedIndex = 0;
             numMontoSalida.Value = 0;
+            cmbTipoSalida.SelectedIndex = 0;
             OcultarTodosLosDetalles();
             cmbMotivoSalida.Focus();
         }
@@ -324,22 +339,21 @@ namespace Animall.App
 
         private void lstVentasDelDia_DrawItem(object sender, DrawItemEventArgs e)
         {
-            if (e.Index < 0) return;
+            if (e.Index < 0 || e.Index >= lstVentasDelDia.Items.Count) return;
 
-            var listBox = (ListBox)sender;
-            if (listBox.Items.Count == 0) return;
-
-            var item = (IMovimientoDiario)listBox.Items[e.Index];
+            var item = (IMovimientoDiario)lstVentasDelDia.Items[e.Index];
 
             Brush backgroundBrush = Brushes.White;
             if (item is SalidaDinero)
             {
-                backgroundBrush = new SolidBrush(Color.FromArgb(255, 224, 224)); // Rojo claro
+                backgroundBrush = new SolidBrush(Color.FromArgb(255, 224, 224));
             }
 
             e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
 
-            Font font = e.Font ?? listBox.Font;
+            Font? font = e.Font;
+            if (font == null) font = lstVentasDelDia.Font;
+
             e.Graphics.DrawString(item.ToString(), font, Brushes.Black, e.Bounds, StringFormat.GenericDefault);
 
             e.DrawFocusRectangle();
@@ -347,7 +361,7 @@ namespace Animall.App
 
         private void btnCerrarCaja_Click(object sender, EventArgs e)
         {
-            if (!_reporteDiario.Movimientos.Any())
+            if (!_reporteDiario.Movimientos.Any() && _reporteDiario.DineroInicial == 0)
             {
                 MessageBox.Show("No hay movimientos para cerrar la caja.", "Caja Vacía", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -356,13 +370,15 @@ namespace Animall.App
             var sb = new StringBuilder();
             sb.AppendLine("--- RESUMEN DE CIERRE DE CAJA ---");
             sb.AppendLine();
-            sb.AppendLine($"Total Ventas Efectivo: {_reporteDiario.TotalPorMetodoPago(MetodoPago.Efectivo):C}");
-            sb.AppendLine($"Total Ventas Transferencia: {_reporteDiario.TotalPorMetodoPago(MetodoPago.Transferencia):C}");
-            sb.AppendLine($"Total Ventas ViüMi: {_reporteDiario.TotalPorMetodoPago(MetodoPago.ViüMi):C}");
-            sb.AppendLine("------------------------------------");
-            sb.AppendLine($"Total de Salidas: {_reporteDiario.TotalSalidas:C}");
+            sb.AppendLine($"Dinero Inicial en Caja: {_reporteDiario.DineroInicial:C}");
+            sb.AppendLine($" + Ventas en Efectivo: {_reporteDiario.TotalPorMetodoPago(MetodoPago.Efectivo):C}");
+            sb.AppendLine($" - Salidas de Caja: {_reporteDiario.TotalSalidasDeCaja:C}");
             sb.AppendLine("------------------------------------");
             sb.AppendLine($"DINERO ESPERADO EN CAJA: {_reporteDiario.TotalCaja:C}");
+            sb.AppendLine();
+            sb.AppendLine("--- Otros Medios de Pago ---");
+            sb.AppendLine($"Total Ventas Transferencia: {_reporteDiario.TotalPorMetodoPago(MetodoPago.Transferencia):C}");
+            sb.AppendLine($"Total Ventas ViüMi: {_reporteDiario.TotalPorMetodoPago(MetodoPago.ViüMi):C}");
             sb.AppendLine();
             sb.AppendLine("¿Desea reiniciar la jornada? Se borrarán todos los movimientos.");
 
@@ -373,9 +389,28 @@ namespace Animall.App
 
             if (confirmResult == DialogResult.Yes)
             {
-                _reporteDiario.Limpiar();
-                ActualizarVistaReporte();
-                MessageBox.Show("La jornada ha sido reiniciada.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ReiniciarJornada();
+            }
+        }
+
+        private void ReiniciarJornada()
+        {
+            this.Hide();
+            using (var formDineroInicial = new DineroInicialForm())
+            {
+                if (formDineroInicial.ShowDialog() == DialogResult.OK)
+                {
+                    _dineroInicial = formDineroInicial.DineroInicial;
+                    _reporteDiario.Limpiar();
+                    _reporteDiario.DineroInicial = _dineroInicial;
+                    ActualizarVistaReporte();
+                    MessageBox.Show("La jornada ha sido reiniciada.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Show();
+                }
+                else
+                {
+                    Application.Exit();
+                }
             }
         }
 
@@ -386,27 +421,36 @@ namespace Animall.App
                 MessageBox.Show("No hay movimientos para generar un reporte.", "Reporte Vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+
+            try
             {
-                saveFileDialog.Filter = "Archivos PDF (*.pdf)|*.pdf";
-                saveFileDialog.Title = "Guardar Reporte del Día";
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string reportesPath = Path.Combine(desktopPath, "ReportesAnimall");
+
+                Directory.CreateDirectory(reportesPath);
 
                 DateTime ahora = DateTime.Now;
                 string turno = (ahora.Hour >= 5 && ahora.Hour <= 14) ? "mañana" : "tarde";
-                saveFileDialog.FileName = $"Reporte-Animall-{ahora:yyyy-MM-dd}-{turno}.pdf";
+                string fileName = $"Reporte-Animall-{ahora:yyyy-MM-dd}-{turno}.pdf";
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                string fullPath = Path.Combine(reportesPath, fileName);
+
+                ServicioReportePdf.GenerarReporte(_reporteDiario, fullPath);
+
+                var result = MessageBox.Show(
+                    $"Reporte PDF guardado exitosamente en:\n{fullPath}\n\n¿Desea abrir la carpeta?",
+                    "Éxito",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Information);
+
+                if (result == DialogResult.Yes)
                 {
-                    try
-                    {
-                        ServicioReportePdf.GenerarReporte(_reporteDiario, saveFileDialog.FileName);
-                        MessageBox.Show("Reporte PDF guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Ocurrió un error al guardar el reporte PDF:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    Process.Start("explorer.exe", reportesPath);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al guardar el reporte PDF:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -467,7 +511,6 @@ namespace Animall.App
                 }
             }
         }
-
 
         private void numImporte_KeyDown(object sender, KeyEventArgs e)
         {

@@ -52,6 +52,7 @@ namespace Animall.Core
     public enum Categoria { Bazar, ComidaParaGatos, ComidaParaPerro, Plasticos, ProductosDeLimpieza, Varios }
     public enum MetodoPago { Efectivo, Transferencia, ViüMi }
     public enum MotivoSalida { Impuestos, Otro, Proveedor, Publicidad, Sueldo }
+    public enum TipoSalida { DeCaja, NoEsDeCaja }
 
     public class ItemVenta
     {
@@ -147,32 +148,46 @@ namespace Animall.Core
         public MotivoSalida Motivo { get; }
         public string Detalle { get; }
         public decimal Importe { get; }
+        public TipoSalida Tipo { get; }
         public string Descripcion => $"{Motivo} - {Detalle}";
         public decimal Monto => -Importe;
 
-        public SalidaDinero(MotivoSalida motivo, string detalle, decimal importe)
+        public SalidaDinero(MotivoSalida motivo, string detalle, decimal importe, TipoSalida tipo)
         {
             Id = _nextId++;
             Fecha = DateTime.Now;
             Motivo = motivo;
             Detalle = detalle;
             Importe = importe;
+            Tipo = tipo;
+        }
+
+        public static string ObtenerNombreAmigable(TipoSalida tipo)
+        {
+            switch (tipo)
+            {
+                case TipoSalida.DeCaja: return "De Caja";
+                case TipoSalida.NoEsDeCaja: return "No es de Caja";
+                default: return tipo.ToString();
+            }
         }
 
         public override string ToString()
         {
-            return $"Salida #{Id} - {Fecha:HH:mm:ss} - {Motivo}: {Detalle} - Monto: ({Importe:C})";
+            string tipoStr = Tipo == TipoSalida.NoEsDeCaja ? " (No Caja)" : "";
+            return $"Salida #{Id} - {Fecha:HH:mm:ss} - {Motivo}: {Detalle}{tipoStr} - Monto: ({Importe:C})";
         }
     }
 
     public class ReporteDiario
     {
         private readonly List<IMovimientoDiario> _movimientos = new List<IMovimientoDiario>();
+        public decimal DineroInicial { get; set; }
         public IReadOnlyList<IMovimientoDiario> Movimientos => _movimientos;
 
         public decimal TotalVentas => _movimientos.OfType<VentaRegistrada>().Sum(v => v.Total);
-        public decimal TotalSalidas => _movimientos.OfType<SalidaDinero>().Sum(s => s.Importe);
-        public decimal TotalCaja => TotalPorMetodoPago(MetodoPago.Efectivo) - TotalSalidas;
+        public decimal TotalSalidasDeCaja => _movimientos.OfType<SalidaDinero>().Where(s => s.Tipo == TipoSalida.DeCaja).Sum(s => s.Importe);
+        public decimal TotalCaja => DineroInicial + TotalPorMetodoPago(MetodoPago.Efectivo) - TotalSalidasDeCaja;
 
         public decimal TotalPorMetodoPago(MetodoPago metodo)
         {
@@ -187,6 +202,7 @@ namespace Animall.Core
         public void Limpiar()
         {
             _movimientos.Clear();
+            DineroInicial = 0;
         }
     }
 
@@ -253,74 +269,127 @@ namespace Animall.Core
             XFont fontTitulo = new XFont("Arial", 20, XFontStyleEx.Bold);
             XFont fontSubtitulo = new XFont("Arial", 12, XFontStyleEx.Bold);
             XFont fontNormal = new XFont("Courier New", 10, XFontStyleEx.Regular);
-            XFont fontTotal = new XFont("Arial", 14, XFontStyleEx.Bold);
+            XFont fontTotal = new XFont("Arial", 12, XFontStyleEx.Bold);
             XFont fontHeaderTabla = new XFont("Courier New", 10, XFontStyleEx.Bold);
 
             double yPoint = 40;
-            double leftMargin = 40;
-            double pageLimit = page.Width.Point - leftMargin;
 
             gfx.DrawString("Reporte de Movimientos del Día", fontTitulo, XBrushes.Black, new XRect(0, yPoint, page.Width.Point, 0), XStringFormats.TopCenter);
             yPoint += 40;
             gfx.DrawString($"Fecha de Generación: {DateTime.Now:dd/MM/yyyy HH:mm:ss}", new XFont("Arial", 10), XBrushes.Gray, new XRect(0, yPoint, page.Width.Point, 0), XStringFormats.TopCenter);
             yPoint += 40;
 
-            yPoint = DibujarSeccionMovimientos(gfx, "Resumen de Ventas", reporte.Movimientos.OfType<VentaRegistrada>(), yPoint, page, fontSubtitulo, fontHeaderTabla, fontNormal);
+            var ventas = reporte.Movimientos.OfType<VentaRegistrada>();
+            yPoint = DibujarTablaVentas(gfx, "Resumen de Ventas", ventas, yPoint, page, fontSubtitulo, fontHeaderTabla, fontNormal, fontTotal);
 
             yPoint += 40;
-            yPoint = DibujarSeccionMovimientos(gfx, "Resumen de Salidas", reporte.Movimientos.OfType<SalidaDinero>(), yPoint, page, fontSubtitulo, fontHeaderTabla, fontNormal);
 
-            yPoint += 40;
-            gfx.DrawLine(XPens.Black, leftMargin, yPoint, pageLimit, yPoint);
-            yPoint += 40;
-
-            gfx.DrawString($"TOTAL VENTAS: {reporte.TotalVentas:C}", fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit, 0), XStringFormats.TopRight);
-            yPoint += 25;
-            gfx.DrawString($"TOTAL SALIDAS: {reporte.TotalSalidas:C}", fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit, 0), XStringFormats.TopRight);
-            yPoint += 25;
-            gfx.DrawString($"TOTAL CAJA: {reporte.TotalCaja:C}", fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit, 0), XStringFormats.TopRight);
+            var salidas = reporte.Movimientos.OfType<SalidaDinero>();
+            yPoint = DibujarTablaSalidas(gfx, "Resumen de Salidas", salidas, yPoint, page, fontSubtitulo, fontHeaderTabla, fontNormal, fontTotal);
 
             document.Save(filePath);
         }
 
-        private static double DibujarSeccionMovimientos<T>(XGraphics gfx, string titulo, IEnumerable<T> movimientos, double yPoint, PdfPage page, XFont fontSubtitulo, XFont fontHeader, XFont fontNormal) where T : IMovimientoDiario
+        private static double DibujarTablaVentas(XGraphics gfx, string titulo, IEnumerable<VentaRegistrada> ventas, double yPoint, PdfPage page, XFont fontSubtitulo, XFont fontHeader, XFont fontNormal, XFont fontTotal)
         {
             double leftMargin = 40;
             double pageLimit = page.Width.Point - leftMargin;
             double idColX = leftMargin;
-            double horaColX = 100;
-            double descColX = 220;
+            double horaColX = 80;
+            double descColX = 160;
+            double importeAlignX = page.Width.Point - leftMargin;
 
             gfx.DrawString(titulo, fontSubtitulo, XBrushes.Black, new XRect(leftMargin, yPoint, 0, 0), XStringFormats.BaseLineLeft);
             yPoint += 20;
             gfx.DrawLine(XPens.Black, leftMargin, yPoint, pageLimit, yPoint);
-            yPoint += 20;
+            yPoint += 15;
 
             gfx.DrawString("ID", fontHeader, XBrushes.Black, idColX, yPoint);
             gfx.DrawString("Hora", fontHeader, XBrushes.Black, horaColX, yPoint);
             gfx.DrawString("Descripción", fontHeader, XBrushes.Black, descColX, yPoint);
-            gfx.DrawString("Monto", fontHeader, XBrushes.Black, new XRect(0, yPoint, pageLimit, 0), XStringFormats.TopRight);
+            gfx.DrawString("Monto", fontHeader, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
             yPoint += 15;
 
-            if (!movimientos.Any())
+            if (!ventas.Any())
             {
-                gfx.DrawString("No se registraron movimientos.", fontNormal, XBrushes.Black, leftMargin, yPoint);
+                gfx.DrawString("No se registraron ventas.", fontNormal, XBrushes.Black, leftMargin, yPoint);
                 yPoint += 15;
             }
             else
             {
-                foreach (var m in movimientos)
+                foreach (var v in ventas)
                 {
-                    gfx.DrawString(m.Id.ToString(), fontNormal, XBrushes.Black, idColX, yPoint);
-                    gfx.DrawString(m.Fecha.ToString("HH:mm:ss"), fontNormal, XBrushes.Black, horaColX, yPoint);
-                    gfx.DrawString(m.Descripcion, fontNormal, XBrushes.Black, descColX, yPoint);
-                    gfx.DrawString(m.Monto.ToString("C"), fontNormal, XBrushes.Black, new XRect(0, yPoint, pageLimit, 0), XStringFormats.TopRight);
+                    gfx.DrawString(v.Id.ToString(), fontNormal, XBrushes.Black, idColX, yPoint);
+                    gfx.DrawString(v.Fecha.ToString("HH:mm:ss"), fontNormal, XBrushes.Black, horaColX, yPoint);
+                    gfx.DrawString(v.Descripcion, fontNormal, XBrushes.Black, descColX, yPoint);
+                    gfx.DrawString(v.Monto.ToString("C"), fontNormal, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
                     yPoint += 15;
                 }
             }
+
+            yPoint += 10;
+            gfx.DrawLine(XPens.Black, pageLimit - 200, yPoint, pageLimit, yPoint);
+            yPoint += 5;
+
+            var totalVentas = ventas.Sum(v => v.Monto);
+            gfx.DrawString("TOTAL VENTAS:", fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit - 100, 0), XStringFormats.TopRight);
+            gfx.DrawString(totalVentas.ToString("C"), fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit, 0), XStringFormats.TopRight);
+            yPoint += 25;
+
             return yPoint;
         }
 
+        private static double DibujarTablaSalidas(XGraphics gfx, string titulo, IEnumerable<SalidaDinero> salidas, double yPoint, PdfPage page, XFont fontSubtitulo, XFont fontHeader, XFont fontNormal, XFont fontTotal)
+        {
+            double leftMargin = 40;
+            double pageLimit = page.Width.Point - leftMargin;
+            double idColX = leftMargin;
+            double horaColX = 80;
+            double descColX = 160;
+            double tipoColX = 380;
+            double importeAlignX = page.Width.Point - leftMargin;
+
+            gfx.DrawString(titulo, fontSubtitulo, XBrushes.Black, new XRect(leftMargin, yPoint, 0, 0), XStringFormats.BaseLineLeft);
+            yPoint += 20;
+            gfx.DrawLine(XPens.Black, leftMargin, yPoint, pageLimit, yPoint);
+            yPoint += 15;
+
+            gfx.DrawString("ID", fontHeader, XBrushes.Black, idColX, yPoint);
+            gfx.DrawString("Hora", fontHeader, XBrushes.Black, horaColX, yPoint);
+            gfx.DrawString("Descripción", fontHeader, XBrushes.Black, descColX, yPoint);
+            gfx.DrawString("Tipo", fontHeader, XBrushes.Black, tipoColX, yPoint);
+            gfx.DrawString("Monto", fontHeader, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
+            yPoint += 15;
+
+            if (!salidas.Any())
+            {
+                gfx.DrawString("No se registraron salidas.", fontNormal, XBrushes.Black, leftMargin, yPoint);
+                yPoint += 15;
+            }
+            else
+            {
+                foreach (var s in salidas)
+                {
+                    gfx.DrawString(s.Id.ToString(), fontNormal, XBrushes.Black, idColX, yPoint);
+                    gfx.DrawString(s.Fecha.ToString("HH:mm:ss"), fontNormal, XBrushes.Black, horaColX, yPoint);
+                    gfx.DrawString(s.Descripcion, fontNormal, XBrushes.Black, descColX, yPoint);
+                    gfx.DrawString(SalidaDinero.ObtenerNombreAmigable(s.Tipo), fontNormal, XBrushes.Black, tipoColX, yPoint);
+                    gfx.DrawString(s.Importe.ToString("C"), fontNormal, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
+                    yPoint += 15;
+                }
+            }
+
+            yPoint += 10;
+            gfx.DrawLine(XPens.Black, pageLimit - 200, yPoint, pageLimit, yPoint);
+            yPoint += 5;
+
+            var totalSalidas = salidas.Sum(s => s.Importe);
+            gfx.DrawString("TOTAL SALIDAS:", fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit - 100, 0), XStringFormats.TopRight);
+            gfx.DrawString(totalSalidas.ToString("C"), fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit, 0), XStringFormats.TopRight);
+            yPoint += 25;
+
+            return yPoint;
+        }
     }
 }
 
