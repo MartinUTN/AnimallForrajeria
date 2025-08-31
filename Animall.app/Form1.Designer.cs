@@ -711,5 +711,6 @@
         private System.Windows.Forms.TextBox txtOtroMotivo;
         private System.Windows.Forms.ComboBox cmbDetalleSalida;
         private System.Windows.Forms.TextBox txtProveedor;
+
     }
 }

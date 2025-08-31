@@ -88,6 +88,7 @@ namespace Animall.App
 
         }
 
+
         #endregion
 
         private System.Windows.Forms.RichTextBox richTextBoxTicket;
