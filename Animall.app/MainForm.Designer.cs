@@ -1,6 +1,6 @@
 ﻿namespace Animall.app
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlPrincipal = new System.Windows.Forms.TabControl();
             this.tabPageVenta = new System.Windows.Forms.TabPage();
             this.lblMetodoPagoActual = new System.Windows.Forms.Label();
@@ -187,7 +187,7 @@
             this.btnFinalizar.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
             this.btnFinalizar.Size = new System.Drawing.Size(225, 53);
             this.btnFinalizar.TabIndex = 4;
-            this.btnFinalizar.Text = " Finalizar Venta (2)";
+            this.btnFinalizar.Text = " Finalizar Venta (F5)";
             this.btnFinalizar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnFinalizar.UseVisualStyleBackColor = false;
             this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
@@ -304,6 +304,7 @@
             this.cmbCategorias.Size = new System.Drawing.Size(423, 28);
             this.cmbCategorias.TabIndex = 0;
             this.cmbCategorias.SelectedIndexChanged += new System.EventHandler(this.cmbCategorias_SelectedIndexChanged);
+            this.cmbCategorias.Validating += new System.ComponentModel.CancelEventHandler(this.cmbCategorias_Validating);
             // 
             // lblCategoria
             // 
@@ -407,6 +408,7 @@
             this.btnRegistrarSalida.Text = " Registrar Salida";
             this.btnRegistrarSalida.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRegistrarSalida.UseVisualStyleBackColor = false;
+            this.btnRegistrarSalida.Click += new System.EventHandler(this.btnRegistrarSalida_Click);
             // 
             // cmbMotivoSalida
             // 
@@ -433,6 +435,7 @@
             this.numMontoSalida.Name = "numMontoSalida";
             this.numMontoSalida.Size = new System.Drawing.Size(221, 27);
             this.numMontoSalida.TabIndex = 3;
+            this.numMontoSalida.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numMontoSalida_KeyDown);
             // 
             // lblMontoSalida
             // 
@@ -510,6 +513,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(1081, 17);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox3.Name = "pictureBox3";
@@ -555,6 +559,7 @@
             this.btnCerrarCaja.Text = " Cerrar Caja";
             this.btnCerrarCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCerrarCaja.UseVisualStyleBackColor = false;
+            this.btnCerrarCaja.Click += new System.EventHandler(this.btnCerrarCaja_Click);
             // 
             // btnDescargarReporte
             // 
@@ -575,6 +580,7 @@
             this.btnDescargarReporte.Text = " Descargar Reporte";
             this.btnDescargarReporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnDescargarReporte.UseVisualStyleBackColor = false;
+            this.btnDescargarReporte.Click += new System.EventHandler(this.btnDescargarReporte_Click);
             // 
             // panelClockReporte
             // 
@@ -638,7 +644,7 @@
             this.groupBoxReporte.Size = new System.Drawing.Size(1406, 704);
             this.groupBoxReporte.TabIndex = 21;
             this.groupBoxReporte.TabStop = false;
-            this.groupBoxReporte.Text = "Movimientos del Día";
+            this.groupBoxReporte.Text = "Movimientos del Día (Doble clic para ver ticket)";
             // 
             // lstVentasDelDia
             // 
@@ -652,6 +658,7 @@
             this.lstVentasDelDia.Name = "lstVentasDelDia";
             this.lstVentasDelDia.Size = new System.Drawing.Size(1400, 676);
             this.lstVentasDelDia.TabIndex = 2;
+            this.lstVentasDelDia.DoubleClick += new System.EventHandler(this.lstVentasDelDia_DoubleClick);
             // 
             // timerClock
             // 
@@ -739,4 +746,3 @@
         private System.Windows.Forms.Label lblMetodoPagoActual;
     }
 }
-

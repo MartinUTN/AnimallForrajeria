@@ -1,7 +1,4 @@
-﻿// Proyecto: Animall.App
-// Archivo: TicketForm.cs
-
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
@@ -60,11 +57,9 @@ namespace Animall.app
             e.HasMorePages = false;
         }
 
-        private void btnCerrar_Click(object? sender, EventArgs e)
+        private void btnCerrar_Click(object sender, EventArgs e)
         {
-
             this.Close();
         }
     }
 }
-

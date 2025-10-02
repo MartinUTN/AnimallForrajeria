@@ -1,7 +1,4 @@
-﻿// Proyecto: Animall.App
-// Archivo: TicketForm.Designer.cs
-
-namespace Animall.app
+﻿namespace Animall.app
 {
     partial class TicketForm
     {
@@ -41,19 +38,17 @@ namespace Animall.app
             this.richTextBoxTicket.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBoxTicket.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBoxTicket.Location = new System.Drawing.Point(12, 12);
             this.richTextBoxTicket.Name = "richTextBoxTicket";
             this.richTextBoxTicket.ReadOnly = true;
-            this.richTextBoxTicket.Size = new System.Drawing.Size(360, 420);
+            this.richTextBoxTicket.Size = new System.Drawing.Size(360, 427);
             this.richTextBoxTicket.TabIndex = 0;
             this.richTextBoxTicket.Text = "";
             // 
             // btnImprimir
             // 
-            this.btnImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImprimir.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnImprimir.Location = new System.Drawing.Point(272, 445);
+            this.btnImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnImprimir.Location = new System.Drawing.Point(12, 445);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(100, 30);
             this.btnImprimir.TabIndex = 1;
@@ -64,7 +59,7 @@ namespace Animall.app
             // btnCerrar
             // 
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCerrar.Location = new System.Drawing.Point(166, 445);
+            this.btnCerrar.Location = new System.Drawing.Point(272, 445);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(100, 30);
             this.btnCerrar.TabIndex = 2;
@@ -88,7 +83,6 @@ namespace Animall.app
 
         }
 
-
         #endregion
 
         private System.Windows.Forms.RichTextBox richTextBoxTicket;
@@ -96,4 +90,3 @@ namespace Animall.app
         private System.Windows.Forms.Button btnCerrar;
     }
 }
-

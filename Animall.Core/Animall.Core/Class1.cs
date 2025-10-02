@@ -1,7 +1,4 @@
-﻿// Proyecto: Animall.Core
-// Archivo: Class1.cs (Actualizado)
-
-using PdfSharp.Drawing;
+﻿using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
@@ -13,7 +10,7 @@ using PdfSharp.Fonts;
 
 namespace Animall.Core
 {
-    // --- RESOLVER FUENTES PARA PDF (Sin cambios) ---
+    // --- FONT RESOLVER (Sin cambios) ---
     public class ReportFontResolver : IFontResolver
     {
         public byte[] GetFont(string faceName)
@@ -46,147 +43,97 @@ namespace Animall.Core
                     if (isItalic) return new FontResolverInfo("couri.ttf");
                     return new FontResolverInfo("cour.ttf");
             }
-            return new FontResolverInfo("arial.ttf");
+            return null;
         }
     }
 
-    // --- ENUMERACIONES (Sin cambios) ---
-    public enum Categoria { Bazar, ComidaParaGatos, ComidaParaPerro, Plasticos, ProductosDeLimpieza, Varios }
-    public enum MetodoPago { Efectivo, Transferencia, ViüMi }
-    public enum MotivoSalida { Impuestos, Otro, Proveedor, Publicidad, Sueldo }
-    public enum TipoSalida { DeCaja, NoEsDeCaja }
-
-    // --- CLASES DEL MODELO (Sin cambios) ---
-    public class ItemVenta
-    {
-        public Categoria Categoria { get; set; }
-        public decimal Importe { get; set; }
-
-        public ItemVenta(Categoria categoria, decimal importe)
-        {
-            Categoria = categoria;
-            Importe = importe;
-        }
-
-        public override string ToString()
-        {
-            string nombre = Venta.ObtenerNombreAmigable(Categoria);
-            return string.Format("{0,-30}{1,15:C}", nombre, Importe);
-        }
-    }
-
-    public class Venta
-    {
-        private readonly List<ItemVenta> _items = new List<ItemVenta>();
-        public IReadOnlyList<ItemVenta> Items => _items;
-        public decimal Total => _items.Sum(item => item.Importe);
-        public MetodoPago MetodoPago { get; set; }
-
-        public void AgregarItem(ItemVenta item) { _items.Add(item); }
-        public void RemoverItem(ItemVenta item) { _items.Remove(item); }
-        public void Limpiar() { _items.Clear(); }
-
-        public static string ObtenerNombreAmigable(Categoria categoria)
-        {
-            switch (categoria)
-            {
-                case Categoria.ComidaParaGatos: return "Comida para gatos";
-                case Categoria.ComidaParaPerro: return "Comida para perro";
-                case Categoria.ProductosDeLimpieza: return "Productos de limpieza";
-                default: return categoria.ToString();
-            }
-        }
-    }
-
+    // --- ENUMS e INTERFACES (Sin cambios) ---
+    public enum Categoria { AlimentoBalanceado, Accesorios, HigieneYCuidado, SaludYBienestar, Varios }
+    public enum MetodoPago { Efectivo, ViüMi, Transferencia }
+    public enum MotivoSalida { Sueldo, Proveedor, Impuestos, Publicidad, Otro }
+    public enum TipoSalida { Caja, Banco }
     public interface IMovimientoDiario
     {
-        int Id { get; }
         DateTime Fecha { get; }
         string Descripcion { get; }
-        decimal Monto { get; }
+        decimal Importe { get; }
     }
 
+    // --- CLASES DE DATOS (Sin cambios) ---
+    public class ItemVenta
+    {
+        public Categoria Categoria { get; }
+        public decimal Importe { get; }
+        public string NombreCategoria => Venta.ObtenerNombreAmigable(Categoria);
+        public ItemVenta(Categoria categoria, decimal importe) { Categoria = categoria; Importe = importe; }
+        public override string ToString() => $"{NombreCategoria,-25} {Importe,10:C}";
+    }
+    public class Venta
+    {
+        public List<ItemVenta> Items { get; } = new List<ItemVenta>();
+        public decimal Total => Items.Sum(i => i.Importe);
+        public MetodoPago MetodoPago { get; set; } = MetodoPago.Efectivo;
+        public void AgregarItem(ItemVenta item) => Items.Add(item);
+        public void RemoverItem(ItemVenta item) => Items.Remove(item);
+        public void Limpiar() { Items.Clear(); MetodoPago = MetodoPago.Efectivo; }
+        public static string ObtenerNombreAmigable(Categoria cat)
+        {
+            return cat switch
+            {
+                Categoria.AlimentoBalanceado => "Alimento Balanceado",
+                Categoria.HigieneYCuidado => "Higiene y Cuidado",
+                Categoria.SaludYBienestar => "Salud y Bienestar",
+                _ => cat.ToString(),
+            };
+        }
+    }
     public class VentaRegistrada : IMovimientoDiario
     {
-        private static int _nextId = 1;
-        public int Id { get; }
-        public DateTime Fecha { get; }
-        public decimal Total { get; }
+        public Guid Id { get; } = Guid.NewGuid();
+        public DateTime Fecha { get; } = DateTime.Now;
+        public List<ItemVenta> Items { get; }
+        public decimal Importe { get; }
         public MetodoPago MetodoPago { get; }
-        public IReadOnlyList<ItemVenta> Items { get; }
-        public string Descripcion => $"Venta - {MetodoPago}";
-        public decimal Monto => Total;
-
-        public VentaRegistrada(Venta venta)
+        public string Descripcion => $"Venta ({Items.Count} ítems)";
+        public VentaRegistrada(Venta venta) { Items = new List<ItemVenta>(venta.Items); Importe = venta.Total; MetodoPago = venta.MetodoPago; }
+        public override string ToString()
         {
-            Id = _nextId++;
-            Fecha = DateTime.Now;
-            Total = venta.Total;
-            MetodoPago = venta.MetodoPago;
-            Items = new List<ItemVenta>(venta.Items);
+            string metodo = MetodoPago switch
+            {
+                MetodoPago.ViüMi => "ViüMi",
+                MetodoPago.Transferencia => "Transf.",
+                _ => "Efectivo"
+            };
+            return $"{Fecha:HH:mm:ss} | {Descripcion,-30} | {Importe,10:C} | {metodo}";
         }
-
-        public override string ToString() => $"Venta #{Id} - {Fecha:HH:mm:ss} - {MetodoPago} - Total: {Total:C}";
     }
-
     public class SalidaDinero : IMovimientoDiario
     {
-        private static int _nextId = 1;
-        public int Id { get; }
-        public DateTime Fecha { get; }
+        public Guid Id { get; } = Guid.NewGuid();
+        public DateTime Fecha { get; } = DateTime.Now;
         public MotivoSalida Motivo { get; }
         public string Detalle { get; }
         public decimal Importe { get; }
         public TipoSalida Tipo { get; }
-        public string Descripcion => $"{Motivo} - {Detalle}";
-        public decimal Monto => -Importe;
-
-        public SalidaDinero(MotivoSalida motivo, string detalle, decimal importe, TipoSalida tipo)
-        {
-            Id = _nextId++;
-            Fecha = DateTime.Now;
-            Motivo = motivo;
-            Detalle = detalle;
-            Importe = importe;
-            Tipo = tipo;
-        }
-
-        public static string ObtenerNombreAmigable(TipoSalida tipo)
-        {
-            switch (tipo)
-            {
-                case TipoSalida.DeCaja: return "De Caja";
-                case TipoSalida.NoEsDeCaja: return "No es de Caja";
-                default: return tipo.ToString();
-            }
-        }
-
-        public override string ToString()
-        {
-            string tipoStr = Tipo == TipoSalida.NoEsDeCaja ? " (No Caja)" : "";
-            return $"Salida #{Id} - {Fecha:HH:mm:ss} - {Motivo}: {Detalle}{tipoStr} - Monto: ({Importe:C})";
-        }
+        public string Descripcion => $"SALIDA: {Motivo} - {Detalle}";
+        public SalidaDinero(MotivoSalida motivo, string detalle, decimal importe, TipoSalida tipo) { Motivo = motivo; Detalle = detalle; Importe = importe; Tipo = tipo; }
+        public static string ObtenerNombreAmigable(TipoSalida tipo) => tipo.ToString();
+        public override string ToString() => $"{Fecha:HH:mm:ss} | {Descripcion,-30} | {-Importe,10:C} | {ObtenerNombreAmigable(Tipo)}";
     }
-
     public class ReporteDiario
     {
-        private readonly List<IMovimientoDiario> _movimientos = new List<IMovimientoDiario>();
+        public List<IMovimientoDiario> Movimientos { get; } = new List<IMovimientoDiario>();
         public decimal DineroInicial { get; set; }
-        public IReadOnlyList<IMovimientoDiario> Movimientos => _movimientos;
-        public decimal TotalVentas => _movimientos.OfType<VentaRegistrada>().Sum(v => v.Total);
-        public decimal TotalSalidasDeCaja => _movimientos.OfType<SalidaDinero>().Where(s => s.Tipo == TipoSalida.DeCaja).Sum(s => s.Importe);
+        public decimal TotalVentas => Movimientos.OfType<VentaRegistrada>().Sum(v => v.Importe);
+        public decimal TotalSalidas => Movimientos.OfType<SalidaDinero>().Sum(s => s.Importe);
+        public decimal TotalSalidasDeCaja => Movimientos.OfType<SalidaDinero>().Where(s => s.Tipo == TipoSalida.Caja).Sum(s => s.Importe);
         public decimal TotalCaja => DineroInicial + TotalPorMetodoPago(MetodoPago.Efectivo) - TotalSalidasDeCaja;
-
-        public decimal TotalPorMetodoPago(MetodoPago metodo) => _movimientos.OfType<VentaRegistrada>().Where(v => v.MetodoPago == metodo).Sum(v => v.Total);
-        public void AgregarMovimiento(IMovimientoDiario movimiento) { _movimientos.Add(movimiento); }
-        public void Limpiar()
-        {
-            _movimientos.Clear();
-            DineroInicial = 0;
-        }
+        public void AgregarMovimiento(IMovimientoDiario movimiento) => Movimientos.Add(movimiento);
+        public void Limpiar() { Movimientos.Clear(); DineroInicial = 0; }
+        public decimal TotalPorMetodoPago(MetodoPago metodo) => Movimientos.OfType<VentaRegistrada>().Where(v => v.MetodoPago == metodo).Sum(v => v.Importe);
     }
 
-    // --- SERVICIOS (Sin cambios) ---
+    // --- SERVICIO DE TICKET (DISEÑO ANTIGUO RESTAURADO) ---
     public static class ServicioTicket
     {
         public static string GenerarTicket(VentaRegistrada venta)
@@ -197,7 +144,7 @@ namespace Animall.Core
             const int nameWidth = totalWidth - priceWidth;
 
             sb.AppendLine("***********************************");
-            sb.AppendLine("****** AnimallForrajería ******");
+            sb.AppendLine("****** AnimallForrajería   ******");
             sb.AppendLine("***********************************");
             sb.AppendLine($"Fecha: {venta.Fecha:dd/MM/yyyy HH:mm:ss}");
             sb.AppendLine($"Ticket ID: {venta.Id}");
@@ -220,20 +167,20 @@ namespace Animall.Core
             sb.AppendLine();
             sb.AppendLine("".PadRight(totalWidth, '-'));
             string totalLabel = "TOTAL:";
-            string totalFormateado = venta.Total.ToString("C");
+            string totalFormateado = venta.Importe.ToString("C");
             sb.AppendLine(totalLabel.PadRight(nameWidth) + totalFormateado.PadLeft(priceWidth));
             sb.AppendLine("-----------------------------------");
             sb.AppendLine();
-            sb.AppendLine(" ¡Gracias por su compra! ");
+            sb.AppendLine("      ¡Gracias por su compra!      ");
             sb.AppendLine("***********************************");
 
             return sb.ToString();
         }
     }
 
+    // --- SERVICIO DE REPORTE PDF (DISEÑO ANTIGUO RESTAURADO) ---
     public static class ServicioReportePdf
     {
-        // El código de este servicio se mantiene igual.
         public static void GenerarReporte(ReporteDiario reporte, string filePath)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
@@ -304,7 +251,7 @@ namespace Animall.Core
                     gfx.DrawString(v.Id.ToString(), fontNormal, XBrushes.Black, idColX, yPoint);
                     gfx.DrawString(v.Fecha.ToString("HH:mm:ss"), fontNormal, XBrushes.Black, horaColX, yPoint);
                     gfx.DrawString(v.Descripcion, fontNormal, XBrushes.Black, descColX, yPoint);
-                    gfx.DrawString(v.Monto.ToString("C"), fontNormal, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
+                    gfx.DrawString(v.Importe.ToString("C"), fontNormal, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
                     yPoint += 15;
                 }
             }
@@ -313,7 +260,7 @@ namespace Animall.Core
             gfx.DrawLine(XPens.Black, pageLimit - 200, yPoint, pageLimit, yPoint);
             yPoint += 5;
 
-            var totalVentas = ventas.Sum(v => v.Monto);
+            var totalVentas = ventas.Sum(v => v.Importe);
             gfx.DrawString("TOTAL VENTAS:", fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit - 100, 0), XStringFormats.TopRight);
             gfx.DrawString(totalVentas.ToString("C"), fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit, 0), XStringFormats.TopRight);
             yPoint += 25;
@@ -374,3 +321,4 @@ namespace Animall.Core
         }
     }
 }
+
