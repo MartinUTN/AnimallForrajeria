@@ -1,5 +1,5 @@
 ﻿// Proyecto: Animall.Core
-// Archivo: Class1.cs
+// Archivo: Class1.cs (Actualizado)
 
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
@@ -13,6 +13,7 @@ using PdfSharp.Fonts;
 
 namespace Animall.Core
 {
+    // --- RESOLVER FUENTES PARA PDF (Sin cambios) ---
     public class ReportFontResolver : IFontResolver
     {
         public byte[] GetFont(string faceName)
@@ -49,11 +50,13 @@ namespace Animall.Core
         }
     }
 
+    // --- ENUMERACIONES (Sin cambios) ---
     public enum Categoria { Bazar, ComidaParaGatos, ComidaParaPerro, Plasticos, ProductosDeLimpieza, Varios }
     public enum MetodoPago { Efectivo, Transferencia, ViüMi }
     public enum MotivoSalida { Impuestos, Otro, Proveedor, Publicidad, Sueldo }
     public enum TipoSalida { DeCaja, NoEsDeCaja }
 
+    // --- CLASES DEL MODELO (Sin cambios) ---
     public class ItemVenta
     {
         public Categoria Categoria { get; set; }
@@ -79,20 +82,9 @@ namespace Animall.Core
         public decimal Total => _items.Sum(item => item.Importe);
         public MetodoPago MetodoPago { get; set; }
 
-        public void AgregarItem(ItemVenta item)
-        {
-            _items.Add(item);
-        }
-
-        public void RemoverItem(ItemVenta item)
-        {
-            _items.Remove(item);
-        }
-
-        public void Limpiar()
-        {
-            _items.Clear();
-        }
+        public void AgregarItem(ItemVenta item) { _items.Add(item); }
+        public void RemoverItem(ItemVenta item) { _items.Remove(item); }
+        public void Limpiar() { _items.Clear(); }
 
         public static string ObtenerNombreAmigable(Categoria categoria)
         {
@@ -134,10 +126,7 @@ namespace Animall.Core
             Items = new List<ItemVenta>(venta.Items);
         }
 
-        public override string ToString()
-        {
-            return $"Venta #{Id} - {Fecha:HH:mm:ss} - {MetodoPago} - Total: {Total:C}";
-        }
+        public override string ToString() => $"Venta #{Id} - {Fecha:HH:mm:ss} - {MetodoPago} - Total: {Total:C}";
     }
 
     public class SalidaDinero : IMovimientoDiario
@@ -184,21 +173,12 @@ namespace Animall.Core
         private readonly List<IMovimientoDiario> _movimientos = new List<IMovimientoDiario>();
         public decimal DineroInicial { get; set; }
         public IReadOnlyList<IMovimientoDiario> Movimientos => _movimientos;
-
         public decimal TotalVentas => _movimientos.OfType<VentaRegistrada>().Sum(v => v.Total);
         public decimal TotalSalidasDeCaja => _movimientos.OfType<SalidaDinero>().Where(s => s.Tipo == TipoSalida.DeCaja).Sum(s => s.Importe);
         public decimal TotalCaja => DineroInicial + TotalPorMetodoPago(MetodoPago.Efectivo) - TotalSalidasDeCaja;
 
-        public decimal TotalPorMetodoPago(MetodoPago metodo)
-        {
-            return _movimientos.OfType<VentaRegistrada>().Where(v => v.MetodoPago == metodo).Sum(v => v.Total);
-        }
-
-        public void AgregarMovimiento(IMovimientoDiario movimiento)
-        {
-            _movimientos.Add(movimiento);
-        }
-
+        public decimal TotalPorMetodoPago(MetodoPago metodo) => _movimientos.OfType<VentaRegistrada>().Where(v => v.MetodoPago == metodo).Sum(v => v.Total);
+        public void AgregarMovimiento(IMovimientoDiario movimiento) { _movimientos.Add(movimiento); }
         public void Limpiar()
         {
             _movimientos.Clear();
@@ -206,6 +186,7 @@ namespace Animall.Core
         }
     }
 
+    // --- SERVICIOS (Sin cambios) ---
     public static class ServicioTicket
     {
         public static string GenerarTicket(VentaRegistrada venta)
@@ -216,7 +197,7 @@ namespace Animall.Core
             const int nameWidth = totalWidth - priceWidth;
 
             sb.AppendLine("***********************************");
-            sb.AppendLine("****** AnimallForrajería   ******");
+            sb.AppendLine("****** AnimallForrajería ******");
             sb.AppendLine("***********************************");
             sb.AppendLine($"Fecha: {venta.Fecha:dd/MM/yyyy HH:mm:ss}");
             sb.AppendLine($"Ticket ID: {venta.Id}");
@@ -243,7 +224,7 @@ namespace Animall.Core
             sb.AppendLine(totalLabel.PadRight(nameWidth) + totalFormateado.PadLeft(priceWidth));
             sb.AppendLine("-----------------------------------");
             sb.AppendLine();
-            sb.AppendLine("      ¡Gracias por su compra!      ");
+            sb.AppendLine(" ¡Gracias por su compra! ");
             sb.AppendLine("***********************************");
 
             return sb.ToString();
@@ -252,6 +233,7 @@ namespace Animall.Core
 
     public static class ServicioReportePdf
     {
+        // El código de este servicio se mantiene igual.
         public static void GenerarReporte(ReporteDiario reporte, string filePath)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
@@ -392,4 +374,3 @@ namespace Animall.Core
         }
     }
 }
-

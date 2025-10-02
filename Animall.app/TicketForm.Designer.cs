@@ -1,7 +1,7 @@
 ﻿// Proyecto: Animall.App
 // Archivo: TicketForm.Designer.cs
 
-namespace Animall.App
+namespace Animall.app
 {
     partial class TicketForm
     {

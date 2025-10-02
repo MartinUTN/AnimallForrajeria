@@ -1,7 +1,4 @@
-﻿// Proyecto: Animall.App
-// Archivo: DineroInicialForm.Designer.cs
-
-namespace Animall.App
+﻿namespace Animall.app
 {
     partial class DineroInicialForm
     {
@@ -20,105 +17,102 @@ namespace Animall.App
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.numDineroInicial = new System.Windows.Forms.NumericUpDown();
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.imageListIcons = new System.Windows.Forms.ImageList(this.components);
-            this.panelCentral = new System.Windows.Forms.Panel();
-            this.lblInstruccion = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numDineroInicial)).BeginInit();
-            this.panelCentral.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DineroInicialForm));
+            numDineroInicial = new NumericUpDown();
+            btnAceptar = new Button();
+            imageListIcons = new ImageList(components);
+            panelCentral = new Panel();
+            lblInstruccion = new Label();
+            ((System.ComponentModel.ISupportInitialize)numDineroInicial).BeginInit();
+            panelCentral.SuspendLayout();
+            SuspendLayout();
             // 
             // numDineroInicial
             // 
-            this.numDineroInicial.DecimalPlaces = 2;
-            this.numDineroInicial.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.numDineroInicial.Location = new System.Drawing.Point(40, 58);
-            this.numDineroInicial.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numDineroInicial.Name = "numDineroInicial";
-            this.numDineroInicial.Size = new System.Drawing.Size(240, 29);
-            this.numDineroInicial.TabIndex = 1;
-            this.numDineroInicial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numDineroInicial.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numDineroInicial_KeyDown);
+            numDineroInicial.DecimalPlaces = 2;
+            numDineroInicial.Font = new Font("Segoe UI", 12F);
+            numDineroInicial.Location = new Point(40, 58);
+            numDineroInicial.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            numDineroInicial.Name = "numDineroInicial";
+            numDineroInicial.Size = new Size(240, 29);
+            numDineroInicial.TabIndex = 1;
+            numDineroInicial.TextAlign = HorizontalAlignment.Center;
+            numDineroInicial.KeyDown += numDineroInicial_KeyDown;
             // 
             // btnAceptar
             // 
-            this.btnAceptar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(174)))), ((int)(((byte)(212)))));
-            this.btnAceptar.FlatAppearance.BorderSize = 0;
-            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAceptar.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAceptar.ForeColor = System.Drawing.Color.Black;
-            this.btnAceptar.ImageKey = "check.png";
-            this.btnAceptar.ImageList = this.imageListIcons;
-            this.btnAceptar.Location = new System.Drawing.Point(100, 112);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnAceptar.Size = new System.Drawing.Size(120, 35);
-            this.btnAceptar.TabIndex = 2;
-            this.btnAceptar.Text = " Aceptar";
-            this.btnAceptar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAceptar.UseVisualStyleBackColor = false;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            btnAceptar.BackColor = Color.FromArgb(242, 174, 212);
+            btnAceptar.FlatAppearance.BorderSize = 0;
+            btnAceptar.FlatStyle = FlatStyle.Flat;
+            btnAceptar.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            btnAceptar.ForeColor = Color.Black;
+            btnAceptar.ImageKey = "check.png";
+            btnAceptar.ImageList = imageListIcons;
+            btnAceptar.Location = new Point(100, 112);
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Padding = new Padding(10, 0, 0, 0);
+            btnAceptar.Size = new Size(120, 35);
+            btnAceptar.TabIndex = 2;
+            btnAceptar.Text = " Aceptar";
+            btnAceptar.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAceptar.UseVisualStyleBackColor = false;
+            btnAceptar.Click += btnAceptar_Click;
             // 
             // imageListIcons
             // 
-            this.imageListIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListIcons.ImageStream")));
-            this.imageListIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListIcons.Images.SetKeyName(0, "cart.png");
-            this.imageListIcons.Images.SetKeyName(1, "money.png");
-            this.imageListIcons.Images.SetKeyName(2, "report.png");
-            this.imageListIcons.Images.SetKeyName(3, "add.png");
-            this.imageListIcons.Images.SetKeyName(4, "check.png");
-            this.imageListIcons.Images.SetKeyName(5, "download.png");
-            this.imageListIcons.Images.SetKeyName(6, "cash.png");
+            imageListIcons.ColorDepth = ColorDepth.Depth32Bit;
+            imageListIcons.ImageStream = (ImageListStreamer)resources.GetObject("imageListIcons.ImageStream");
+            imageListIcons.TransparentColor = Color.Transparent;
+            imageListIcons.Images.SetKeyName(0, "add.png");
+            imageListIcons.Images.SetKeyName(1, "cart.png");
+            imageListIcons.Images.SetKeyName(2, "cash.png");
+            imageListIcons.Images.SetKeyName(3, "check.png");
+            imageListIcons.Images.SetKeyName(4, "download.png");
+            imageListIcons.Images.SetKeyName(5, "money.png");
+            imageListIcons.Images.SetKeyName(6, "report.png");
             // 
             // panelCentral
             // 
-            this.panelCentral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(250)))), ((int)(((byte)(240)))));
-            this.panelCentral.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelCentral.Controls.Add(this.lblInstruccion);
-            this.panelCentral.Controls.Add(this.btnAceptar);
-            this.panelCentral.Controls.Add(this.numDineroInicial);
-            this.panelCentral.Location = new System.Drawing.Point(12, 12);
-            this.panelCentral.Name = "panelCentral";
-            this.panelCentral.Size = new System.Drawing.Size(320, 177);
-            this.panelCentral.TabIndex = 3;
+            panelCentral.BackColor = Color.FromArgb(255, 250, 240);
+            panelCentral.BorderStyle = BorderStyle.FixedSingle;
+            panelCentral.Controls.Add(lblInstruccion);
+            panelCentral.Controls.Add(btnAceptar);
+            panelCentral.Controls.Add(numDineroInicial);
+            panelCentral.Location = new Point(12, 12);
+            panelCentral.Name = "panelCentral";
+            panelCentral.Size = new Size(320, 177);
+            panelCentral.TabIndex = 3;
             // 
             // lblInstruccion
             // 
-            this.lblInstruccion.AutoSize = true;
-            this.lblInstruccion.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblInstruccion.Location = new System.Drawing.Point(37, 29);
-            this.lblInstruccion.Name = "lblInstruccion";
-            this.lblInstruccion.Size = new System.Drawing.Size(246, 17);
-            this.lblInstruccion.TabIndex = 0;
-            this.lblInstruccion.Text = "Ingrese el monto inicial para la caja:";
+            lblInstruccion.AutoSize = true;
+            lblInstruccion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            lblInstruccion.Location = new Point(37, 29);
+            lblInstruccion.Name = "lblInstruccion";
+            lblInstruccion.Size = new Size(232, 17);
+            lblInstruccion.TabIndex = 0;
+            lblInstruccion.Text = "Ingrese el monto inicial para la caja:";
             // 
             // DineroInicialForm
             // 
-            this.AcceptButton = this.btnAceptar;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(224)))), ((int)(((byte)(133)))));
-            this.ClientSize = new System.Drawing.Size(344, 201);
-            this.Controls.Add(this.panelCentral);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "DineroInicialForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Inicio de Jornada";
-            this.Load += new System.EventHandler(this.DineroInicialForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numDineroInicial)).EndInit();
-            this.panelCentral.ResumeLayout(false);
-            this.panelCentral.PerformLayout();
-            this.ResumeLayout(false);
+            AcceptButton = btnAceptar;
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(242, 224, 133);
+            ClientSize = new Size(344, 201);
+            Controls.Add(panelCentral);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "DineroInicialForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Inicio de Jornada";
+            Load += DineroInicialForm_Load;
+            ((System.ComponentModel.ISupportInitialize)numDineroInicial).EndInit();
+            panelCentral.ResumeLayout(false);
+            panelCentral.PerformLayout();
+            ResumeLayout(false);
 
         }
 

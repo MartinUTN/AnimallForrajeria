@@ -1,12 +1,16 @@
-﻿// Proyecto: Animall.App
-// Archivo: Form1.Designer.cs
-
-namespace Animall.App
+﻿namespace Animall.app
 {
     partial class Form1
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -18,682 +22,674 @@ namespace Animall.App
 
         #region Windows Form Designer generated code
 
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            tabControlPrincipal = new TabControl();
-            tabPageVenta = new TabPage();
-            panelClockVenta = new Panel();
-            lblClockVenta = new Label();
-            pictureBox1 = new PictureBox();
-            lblMetodoPago = new Label();
-            cmbMetodoPago = new ComboBox();
-            btnFinalizar = new Button();
-            imageListIcons = new ImageList(components);
-            lblTotal = new Label();
-            groupBoxDetalle = new GroupBox();
-            lstItemsVenta = new ListBox();
-            btnAgregar = new Button();
-            numImporte = new NumericUpDown();
-            lblImporte = new Label();
-            cmbCategorias = new ComboBox();
-            lblCategoria = new Label();
-            tabPageSalida = new TabPage();
-            groupBoxSalida = new GroupBox();
-            lblTipoSalida = new Label();
-            cmbTipoSalida = new ComboBox();
-            lblMotivoSalida = new Label();
-            btnRegistrarSalida = new Button();
-            cmbMotivoSalida = new ComboBox();
-            numMontoSalida = new NumericUpDown();
-            lblMontoSalida = new Label();
-            lblDetalleSalida = new Label();
-            txtOtroMotivo = new TextBox();
-            cmbDetalleSalida = new ComboBox();
-            txtProveedor = new TextBox();
-            panelClockSalida = new Panel();
-            lblClockSalida = new Label();
-            pictureBox3 = new PictureBox();
-            tabPageReporte = new TabPage();
-            btnCerrarCaja = new Button();
-            btnDescargarReporte = new Button();
-            panelClockReporte = new Panel();
-            lblClockReporte = new Label();
-            pictureBox2 = new PictureBox();
-            lblTotalDelDia = new Label();
-            groupBoxReporte = new GroupBox();
-            lstVentasDelDia = new ListBox();
-            timerClock = new System.Windows.Forms.Timer(components);
-            tabControlPrincipal.SuspendLayout();
-            tabPageVenta.SuspendLayout();
-            panelClockVenta.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            groupBoxDetalle.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numImporte).BeginInit();
-            tabPageSalida.SuspendLayout();
-            groupBoxSalida.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numMontoSalida).BeginInit();
-            panelClockSalida.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPageReporte.SuspendLayout();
-            panelClockReporte.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            groupBoxReporte.SuspendLayout();
-            SuspendLayout();
+            this.tabControlPrincipal = new System.Windows.Forms.TabControl();
+            this.tabPageVenta = new System.Windows.Forms.TabPage();
+            this.lblMetodoPagoActual = new System.Windows.Forms.Label();
+            this.panelClockVenta = new System.Windows.Forms.Panel();
+            this.lblClockVenta = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnFinalizar = new System.Windows.Forms.Button();
+            this.imageListIcons = new System.Windows.Forms.ImageList(this.components);
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.groupBoxDetalle = new System.Windows.Forms.GroupBox();
+            this.lstItemsVenta = new System.Windows.Forms.ListBox();
+            this.btnAgregar = new System.Windows.Forms.Button();
+            this.numImporte = new System.Windows.Forms.NumericUpDown();
+            this.lblImporte = new System.Windows.Forms.Label();
+            this.cmbCategorias = new System.Windows.Forms.ComboBox();
+            this.lblCategoria = new System.Windows.Forms.Label();
+            this.tabPageSalida = new System.Windows.Forms.TabPage();
+            this.groupBoxSalida = new System.Windows.Forms.GroupBox();
+            this.lblTipoSalida = new System.Windows.Forms.Label();
+            this.cmbTipoSalida = new System.Windows.Forms.ComboBox();
+            this.lblMotivoSalida = new System.Windows.Forms.Label();
+            this.btnRegistrarSalida = new System.Windows.Forms.Button();
+            this.cmbMotivoSalida = new System.Windows.Forms.ComboBox();
+            this.numMontoSalida = new System.Windows.Forms.NumericUpDown();
+            this.lblMontoSalida = new System.Windows.Forms.Label();
+            this.lblDetalleSalida = new System.Windows.Forms.Label();
+            this.txtOtroMotivo = new System.Windows.Forms.TextBox();
+            this.cmbDetalleSalida = new System.Windows.Forms.ComboBox();
+            this.txtProveedor = new System.Windows.Forms.TextBox();
+            this.panelClockSalida = new System.Windows.Forms.Panel();
+            this.lblClockSalida = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.tabPageReporte = new System.Windows.Forms.TabPage();
+            this.btnCerrarCaja = new System.Windows.Forms.Button();
+            this.btnDescargarReporte = new System.Windows.Forms.Button();
+            this.panelClockReporte = new System.Windows.Forms.Panel();
+            this.lblClockReporte = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lblTotalDelDia = new System.Windows.Forms.Label();
+            this.groupBoxReporte = new System.Windows.Forms.GroupBox();
+            this.lstVentasDelDia = new System.Windows.Forms.ListBox();
+            this.timerClock = new System.Windows.Forms.Timer(this.components);
+            this.tabControlPrincipal.SuspendLayout();
+            this.tabPageVenta.SuspendLayout();
+            this.panelClockVenta.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBoxDetalle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numImporte)).BeginInit();
+            this.tabPageSalida.SuspendLayout();
+            this.groupBoxSalida.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMontoSalida)).BeginInit();
+            this.panelClockSalida.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.tabPageReporte.SuspendLayout();
+            this.panelClockReporte.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.groupBoxReporte.SuspendLayout();
+            this.SuspendLayout();
             // 
             // tabControlPrincipal
             // 
-            tabControlPrincipal.Controls.Add(tabPageVenta);
-            tabControlPrincipal.Controls.Add(tabPageSalida);
-            tabControlPrincipal.Controls.Add(tabPageReporte);
-            tabControlPrincipal.Dock = DockStyle.Fill;
-            tabControlPrincipal.ImageList = imageListIcons;
-            tabControlPrincipal.Location = new Point(0, 0);
-            tabControlPrincipal.Margin = new Padding(3, 4, 3, 4);
-            tabControlPrincipal.Name = "tabControlPrincipal";
-            tabControlPrincipal.SelectedIndex = 0;
-            tabControlPrincipal.Size = new Size(1445, 961);
-            tabControlPrincipal.TabIndex = 0;
+            this.tabControlPrincipal.Controls.Add(this.tabPageVenta);
+            this.tabControlPrincipal.Controls.Add(this.tabPageSalida);
+            this.tabControlPrincipal.Controls.Add(this.tabPageReporte);
+            this.tabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlPrincipal.ImageList = this.imageListIcons;
+            this.tabControlPrincipal.Location = new System.Drawing.Point(0, 0);
+            this.tabControlPrincipal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabControlPrincipal.Name = "tabControlPrincipal";
+            this.tabControlPrincipal.SelectedIndex = 0;
+            this.tabControlPrincipal.Size = new System.Drawing.Size(1445, 961);
+            this.tabControlPrincipal.TabIndex = 0;
             // 
             // tabPageVenta
             // 
-            tabPageVenta.BackColor = Color.FromArgb(242, 224, 133);
-            tabPageVenta.Controls.Add(panelClockVenta);
-            tabPageVenta.Controls.Add(pictureBox1);
-            tabPageVenta.Controls.Add(lblMetodoPago);
-            tabPageVenta.Controls.Add(cmbMetodoPago);
-            tabPageVenta.Controls.Add(btnFinalizar);
-            tabPageVenta.Controls.Add(lblTotal);
-            tabPageVenta.Controls.Add(groupBoxDetalle);
-            tabPageVenta.Controls.Add(btnAgregar);
-            tabPageVenta.Controls.Add(numImporte);
-            tabPageVenta.Controls.Add(lblImporte);
-            tabPageVenta.Controls.Add(cmbCategorias);
-            tabPageVenta.Controls.Add(lblCategoria);
-            tabPageVenta.ImageKey = "cart.png";
-            tabPageVenta.Location = new Point(4, 29);
-            tabPageVenta.Margin = new Padding(3, 4, 3, 4);
-            tabPageVenta.Name = "tabPageVenta";
-            tabPageVenta.Padding = new Padding(11, 13, 11, 13);
-            tabPageVenta.Size = new Size(1437, 928);
-            tabPageVenta.TabIndex = 0;
-            tabPageVenta.Text = "Nueva Venta";
+            this.tabPageVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(224)))), ((int)(((byte)(133)))));
+            this.tabPageVenta.Controls.Add(this.lblMetodoPagoActual);
+            this.tabPageVenta.Controls.Add(this.panelClockVenta);
+            this.tabPageVenta.Controls.Add(this.pictureBox1);
+            this.tabPageVenta.Controls.Add(this.btnFinalizar);
+            this.tabPageVenta.Controls.Add(this.lblTotal);
+            this.tabPageVenta.Controls.Add(this.groupBoxDetalle);
+            this.tabPageVenta.Controls.Add(this.btnAgregar);
+            this.tabPageVenta.Controls.Add(this.numImporte);
+            this.tabPageVenta.Controls.Add(this.lblImporte);
+            this.tabPageVenta.Controls.Add(this.cmbCategorias);
+            this.tabPageVenta.Controls.Add(this.lblCategoria);
+            this.tabPageVenta.ImageKey = "cart.png";
+            this.tabPageVenta.Location = new System.Drawing.Point(4, 29);
+            this.tabPageVenta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPageVenta.Name = "tabPageVenta";
+            this.tabPageVenta.Padding = new System.Windows.Forms.Padding(11, 13, 11, 13);
+            this.tabPageVenta.Size = new System.Drawing.Size(1437, 928);
+            this.tabPageVenta.TabIndex = 0;
+            this.tabPageVenta.Text = "Nueva Venta";
+            // 
+            // lblMetodoPagoActual
+            // 
+            this.lblMetodoPagoActual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMetodoPagoActual.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblMetodoPagoActual.Location = new System.Drawing.Point(925, 870);
+            this.lblMetodoPagoActual.Name = "lblMetodoPagoActual";
+            this.lblMetodoPagoActual.Size = new System.Drawing.Size(263, 23);
+            this.lblMetodoPagoActual.TabIndex = 22;
+            this.lblMetodoPagoActual.Text = "Método de Pago: Efectivo";
+            this.lblMetodoPagoActual.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panelClockVenta
             // 
-            panelClockVenta.BackColor = Color.Black;
-            panelClockVenta.Controls.Add(lblClockVenta);
-            panelClockVenta.Location = new Point(816, 40);
-            panelClockVenta.Margin = new Padding(3, 4, 3, 4);
-            panelClockVenta.Name = "panelClockVenta";
-            panelClockVenta.Size = new Size(171, 53);
-            panelClockVenta.TabIndex = 21;
+            this.panelClockVenta.BackColor = System.Drawing.Color.Black;
+            this.panelClockVenta.Controls.Add(this.lblClockVenta);
+            this.panelClockVenta.Location = new System.Drawing.Point(816, 40);
+            this.panelClockVenta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelClockVenta.Name = "panelClockVenta";
+            this.panelClockVenta.Size = new System.Drawing.Size(171, 53);
+            this.panelClockVenta.TabIndex = 21;
             // 
             // lblClockVenta
             // 
-            lblClockVenta.Dock = DockStyle.Fill;
-            lblClockVenta.Font = new Font("Consolas", 20F, FontStyle.Bold);
-            lblClockVenta.ForeColor = Color.FromArgb(242, 226, 5);
-            lblClockVenta.Location = new Point(0, 0);
-            lblClockVenta.Name = "lblClockVenta";
-            lblClockVenta.Size = new Size(171, 53);
-            lblClockVenta.TabIndex = 20;
-            lblClockVenta.Text = "00:00:00";
-            lblClockVenta.TextAlign = ContentAlignment.MiddleCenter;
+            this.lblClockVenta.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblClockVenta.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Bold);
+            this.lblClockVenta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(226)))), ((int)(((byte)(5)))));
+            this.lblClockVenta.Location = new System.Drawing.Point(0, 0);
+            this.lblClockVenta.Name = "lblClockVenta";
+            this.lblClockVenta.Size = new System.Drawing.Size(171, 53);
+            this.lblClockVenta.TabIndex = 20;
+            this.lblClockVenta.Text = "00:00:00";
+            this.lblClockVenta.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
-            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1081, 17);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(339, 99);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 19;
-            pictureBox1.TabStop = false;
-            // 
-            // lblMetodoPago
-            // 
-            lblMetodoPago.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lblMetodoPago.AutoSize = true;
-            lblMetodoPago.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblMetodoPago.ForeColor = Color.Black;
-            lblMetodoPago.Location = new Point(1008, 845);
-            lblMetodoPago.Name = "lblMetodoPago";
-            lblMetodoPago.Size = new Size(128, 20);
-            lblMetodoPago.TabIndex = 18;
-            lblMetodoPago.Text = "Método de Pago:";
-            // 
-            // cmbMetodoPago
-            // 
-            cmbMetodoPago.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            cmbMetodoPago.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbMetodoPago.FormattingEnabled = true;
-            cmbMetodoPago.Location = new Point(1008, 869);
-            cmbMetodoPago.Margin = new Padding(3, 4, 3, 4);
-            cmbMetodoPago.Name = "cmbMetodoPago";
-            cmbMetodoPago.Size = new Size(180, 28);
-            cmbMetodoPago.TabIndex = 3;
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(1081, 17);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(339, 99);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
             // 
             // btnFinalizar
             // 
-            btnFinalizar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnFinalizar.BackColor = Color.FromArgb(242, 174, 212);
-            btnFinalizar.FlatAppearance.BorderSize = 0;
-            btnFinalizar.FlatStyle = FlatStyle.Flat;
-            btnFinalizar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            btnFinalizar.ForeColor = Color.Black;
-            btnFinalizar.ImageKey = "check.png";
-            btnFinalizar.ImageList = imageListIcons;
-            btnFinalizar.Location = new Point(1195, 845);
-            btnFinalizar.Margin = new Padding(3, 4, 3, 4);
-            btnFinalizar.Name = "btnFinalizar";
-            btnFinalizar.Padding = new Padding(11, 0, 0, 0);
-            btnFinalizar.Size = new Size(225, 53);
-            btnFinalizar.TabIndex = 4;
-            btnFinalizar.Text = " Finalizar Venta (F5)";
-            btnFinalizar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnFinalizar.UseVisualStyleBackColor = false;
-            btnFinalizar.Click += btnFinalizar_Click;
+            this.btnFinalizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(174)))), ((int)(((byte)(212)))));
+            this.btnFinalizar.FlatAppearance.BorderSize = 0;
+            this.btnFinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFinalizar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnFinalizar.ForeColor = System.Drawing.Color.Black;
+            this.btnFinalizar.ImageKey = "check.png";
+            this.btnFinalizar.ImageList = this.imageListIcons;
+            this.btnFinalizar.Location = new System.Drawing.Point(1195, 845);
+            this.btnFinalizar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnFinalizar.Name = "btnFinalizar";
+            this.btnFinalizar.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
+            this.btnFinalizar.Size = new System.Drawing.Size(225, 53);
+            this.btnFinalizar.TabIndex = 4;
+            this.btnFinalizar.Text = " Finalizar Venta (2)";
+            this.btnFinalizar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnFinalizar.UseVisualStyleBackColor = false;
+            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
             // 
             // imageListIcons
             // 
-            imageListIcons.ColorDepth = ColorDepth.Depth32Bit;
-            imageListIcons.ImageStream = (ImageListStreamer)resources.GetObject("imageListIcons.ImageStream");
-            imageListIcons.TransparentColor = Color.Transparent;
-            imageListIcons.Images.SetKeyName(0, "report.png");
-            imageListIcons.Images.SetKeyName(1, "money.png");
-            imageListIcons.Images.SetKeyName(2, "cart.png");
-            imageListIcons.Images.SetKeyName(3, "cash.png");
-            imageListIcons.Images.SetKeyName(4, "download.png");
-            imageListIcons.Images.SetKeyName(5, "check.png");
-            imageListIcons.Images.SetKeyName(6, "add.png");
+            this.imageListIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageListIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListIcons.ImageStream")));
+            this.imageListIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListIcons.Images.SetKeyName(0, "report.png");
+            this.imageListIcons.Images.SetKeyName(1, "money.png");
+            this.imageListIcons.Images.SetKeyName(2, "cart.png");
+            this.imageListIcons.Images.SetKeyName(3, "cash.png");
+            this.imageListIcons.Images.SetKeyName(4, "download.png");
+            this.imageListIcons.Images.SetKeyName(5, "check.png");
+            this.imageListIcons.Images.SetKeyName(6, "add.png");
             // 
             // lblTotal
             // 
-            lblTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            lblTotal.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold);
-            lblTotal.ForeColor = Color.Black;
-            lblTotal.Location = new Point(15, 856);
-            lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(536, 49);
-            lblTotal.TabIndex = 15;
-            lblTotal.Text = "TOTAL: $0.00";
-            lblTotal.TextAlign = ContentAlignment.MiddleLeft;
+            this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold);
+            this.lblTotal.ForeColor = System.Drawing.Color.Black;
+            this.lblTotal.Location = new System.Drawing.Point(15, 856);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(536, 49);
+            this.lblTotal.TabIndex = 15;
+            this.lblTotal.Text = "TOTAL: $0.00";
+            this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBoxDetalle
             // 
-            groupBoxDetalle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBoxDetalle.Controls.Add(lstItemsVenta);
-            groupBoxDetalle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBoxDetalle.ForeColor = Color.Black;
-            groupBoxDetalle.Location = new Point(15, 124);
-            groupBoxDetalle.Margin = new Padding(3, 4, 3, 4);
-            groupBoxDetalle.Name = "groupBoxDetalle";
-            groupBoxDetalle.Padding = new Padding(3, 4, 3, 4);
-            groupBoxDetalle.Size = new Size(1406, 704);
-            groupBoxDetalle.TabIndex = 14;
-            groupBoxDetalle.TabStop = false;
-            groupBoxDetalle.Text = "Detalle de Venta (Seleccione un ítem y presione SUPR para eliminar)";
+            this.groupBoxDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxDetalle.Controls.Add(this.lstItemsVenta);
+            this.groupBoxDetalle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBoxDetalle.ForeColor = System.Drawing.Color.Black;
+            this.groupBoxDetalle.Location = new System.Drawing.Point(15, 124);
+            this.groupBoxDetalle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxDetalle.Name = "groupBoxDetalle";
+            this.groupBoxDetalle.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxDetalle.Size = new System.Drawing.Size(1406, 704);
+            this.groupBoxDetalle.TabIndex = 14;
+            this.groupBoxDetalle.TabStop = false;
+            this.groupBoxDetalle.Text = "Detalle de Venta (Seleccione un ítem y presione SUPR para eliminar)";
             // 
             // lstItemsVenta
             // 
-            lstItemsVenta.Dock = DockStyle.Fill;
-            lstItemsVenta.Font = new Font("Consolas", 12F);
-            lstItemsVenta.FormattingEnabled = true;
-            lstItemsVenta.ItemHeight = 23;
-            lstItemsVenta.Location = new Point(3, 24);
-            lstItemsVenta.Margin = new Padding(3, 4, 3, 4);
-            lstItemsVenta.Name = "lstItemsVenta";
-            lstItemsVenta.Size = new Size(1400, 676);
-            lstItemsVenta.TabIndex = 5;
+            this.lstItemsVenta.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstItemsVenta.Font = new System.Drawing.Font("Consolas", 12F);
+            this.lstItemsVenta.FormattingEnabled = true;
+            this.lstItemsVenta.ItemHeight = 23;
+            this.lstItemsVenta.Location = new System.Drawing.Point(3, 24);
+            this.lstItemsVenta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lstItemsVenta.Name = "lstItemsVenta";
+            this.lstItemsVenta.Size = new System.Drawing.Size(1400, 676);
+            this.lstItemsVenta.TabIndex = 5;
             // 
             // btnAgregar
             // 
-            btnAgregar.BackColor = Color.FromArgb(242, 174, 212);
-            btnAgregar.FlatAppearance.BorderSize = 0;
-            btnAgregar.FlatStyle = FlatStyle.Flat;
-            btnAgregar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnAgregar.ForeColor = Color.Black;
-            btnAgregar.ImageKey = "add.png";
-            btnAgregar.ImageList = imageListIcons;
-            btnAgregar.Location = new Point(622, 49);
-            btnAgregar.Margin = new Padding(3, 4, 3, 4);
-            btnAgregar.Name = "btnAgregar";
-            btnAgregar.Padding = new Padding(6, 0, 0, 0);
-            btnAgregar.Size = new Size(143, 32);
-            btnAgregar.TabIndex = 2;
-            btnAgregar.Text = " Agregar Ítem";
-            btnAgregar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnAgregar.UseVisualStyleBackColor = false;
-            btnAgregar.Click += btnAgregar_Click;
+            this.btnAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(174)))), ((int)(((byte)(212)))));
+            this.btnAgregar.FlatAppearance.BorderSize = 0;
+            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnAgregar.ForeColor = System.Drawing.Color.Black;
+            this.btnAgregar.ImageKey = "add.png";
+            this.btnAgregar.ImageList = this.imageListIcons;
+            this.btnAgregar.Location = new System.Drawing.Point(622, 49);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
+            this.btnAgregar.Size = new System.Drawing.Size(143, 32);
+            this.btnAgregar.TabIndex = 2;
+            this.btnAgregar.Text = " Agregar Ítem";
+            this.btnAgregar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAgregar.UseVisualStyleBackColor = false;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // numImporte
             // 
-            numImporte.DecimalPlaces = 2;
-            numImporte.Location = new Point(462, 51);
-            numImporte.Margin = new Padding(3, 4, 3, 4);
-            numImporte.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
-            numImporte.Name = "numImporte";
-            numImporte.Size = new Size(137, 27);
-            numImporte.TabIndex = 1;
-            numImporte.Enter += numImporte_Enter;
-            numImporte.KeyDown += numImporte_KeyDown;
+            this.numImporte.DecimalPlaces = 2;
+            this.numImporte.Location = new System.Drawing.Point(462, 51);
+            this.numImporte.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numImporte.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numImporte.Name = "numImporte";
+            this.numImporte.Size = new System.Drawing.Size(137, 27);
+            this.numImporte.TabIndex = 1;
+            this.numImporte.Enter += new System.EventHandler(this.numImporte_Enter);
+            this.numImporte.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numImporte_KeyDown);
             // 
             // lblImporte
             // 
-            lblImporte.AutoSize = true;
-            lblImporte.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblImporte.ForeColor = Color.Black;
-            lblImporte.Location = new Point(462, 25);
-            lblImporte.Name = "lblImporte";
-            lblImporte.Size = new Size(70, 20);
-            lblImporte.TabIndex = 11;
-            lblImporte.Text = "Importe:";
+            this.lblImporte.AutoSize = true;
+            this.lblImporte.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblImporte.ForeColor = System.Drawing.Color.Black;
+            this.lblImporte.Location = new System.Drawing.Point(462, 25);
+            this.lblImporte.Name = "lblImporte";
+            this.lblImporte.Size = new System.Drawing.Size(70, 20);
+            this.lblImporte.TabIndex = 11;
+            this.lblImporte.Text = "Importe:";
             // 
             // cmbCategorias
             // 
-            cmbCategorias.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cmbCategorias.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cmbCategorias.FormattingEnabled = true;
-            cmbCategorias.Location = new Point(15, 49);
-            cmbCategorias.Margin = new Padding(3, 4, 3, 4);
-            cmbCategorias.Name = "cmbCategorias";
-            cmbCategorias.Size = new Size(423, 28);
-            cmbCategorias.TabIndex = 0;
-            cmbCategorias.SelectedIndexChanged += cmbCategorias_SelectedIndexChanged;
-            cmbCategorias.Validating += cmbCategorias_Validating;
+            this.cmbCategorias.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbCategorias.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbCategorias.FormattingEnabled = true;
+            this.cmbCategorias.Location = new System.Drawing.Point(15, 49);
+            this.cmbCategorias.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbCategorias.Name = "cmbCategorias";
+            this.cmbCategorias.Size = new System.Drawing.Size(423, 28);
+            this.cmbCategorias.TabIndex = 0;
+            this.cmbCategorias.SelectedIndexChanged += new System.EventHandler(this.cmbCategorias_SelectedIndexChanged);
             // 
             // lblCategoria
             // 
-            lblCategoria.AutoSize = true;
-            lblCategoria.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblCategoria.ForeColor = Color.Black;
-            lblCategoria.Location = new Point(15, 25);
-            lblCategoria.Name = "lblCategoria";
-            lblCategoria.Size = new Size(80, 20);
-            lblCategoria.TabIndex = 9;
-            lblCategoria.Text = "Categoría:";
+            this.lblCategoria.AutoSize = true;
+            this.lblCategoria.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblCategoria.ForeColor = System.Drawing.Color.Black;
+            this.lblCategoria.Location = new System.Drawing.Point(15, 25);
+            this.lblCategoria.Name = "lblCategoria";
+            this.lblCategoria.Size = new System.Drawing.Size(80, 20);
+            this.lblCategoria.TabIndex = 9;
+            this.lblCategoria.Text = "Categoría:";
             // 
             // tabPageSalida
             // 
-            tabPageSalida.BackColor = Color.FromArgb(242, 224, 133);
-            tabPageSalida.Controls.Add(groupBoxSalida);
-            tabPageSalida.Controls.Add(panelClockSalida);
-            tabPageSalida.Controls.Add(pictureBox3);
-            tabPageSalida.ImageKey = "money.png";
-            tabPageSalida.Location = new Point(4, 29);
-            tabPageSalida.Margin = new Padding(3, 4, 3, 4);
-            tabPageSalida.Name = "tabPageSalida";
-            tabPageSalida.Padding = new Padding(11, 13, 11, 13);
-            tabPageSalida.Size = new Size(1437, 928);
-            tabPageSalida.TabIndex = 2;
-            tabPageSalida.Text = "Registrar Salida";
+            this.tabPageSalida.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(224)))), ((int)(((byte)(133)))));
+            this.tabPageSalida.Controls.Add(this.groupBoxSalida);
+            this.tabPageSalida.Controls.Add(this.panelClockSalida);
+            this.tabPageSalida.Controls.Add(this.pictureBox3);
+            this.tabPageSalida.ImageKey = "money.png";
+            this.tabPageSalida.Location = new System.Drawing.Point(4, 29);
+            this.tabPageSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPageSalida.Name = "tabPageSalida";
+            this.tabPageSalida.Padding = new System.Windows.Forms.Padding(11, 13, 11, 13);
+            this.tabPageSalida.Size = new System.Drawing.Size(1437, 928);
+            this.tabPageSalida.TabIndex = 2;
+            this.tabPageSalida.Text = "Registrar Salida";
             // 
             // groupBoxSalida
             // 
-            groupBoxSalida.Anchor = AnchorStyles.None;
-            groupBoxSalida.BackColor = Color.FromArgb(255, 250, 240);
-            groupBoxSalida.Controls.Add(lblTipoSalida);
-            groupBoxSalida.Controls.Add(cmbTipoSalida);
-            groupBoxSalida.Controls.Add(lblMotivoSalida);
-            groupBoxSalida.Controls.Add(btnRegistrarSalida);
-            groupBoxSalida.Controls.Add(cmbMotivoSalida);
-            groupBoxSalida.Controls.Add(numMontoSalida);
-            groupBoxSalida.Controls.Add(lblMontoSalida);
-            groupBoxSalida.Controls.Add(lblDetalleSalida);
-            groupBoxSalida.Controls.Add(txtOtroMotivo);
-            groupBoxSalida.Controls.Add(cmbDetalleSalida);
-            groupBoxSalida.Controls.Add(txtProveedor);
-            groupBoxSalida.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            groupBoxSalida.Location = new Point(432, 196);
-            groupBoxSalida.Margin = new Padding(3, 4, 3, 4);
-            groupBoxSalida.Name = "groupBoxSalida";
-            groupBoxSalida.Padding = new Padding(11, 13, 11, 13);
-            groupBoxSalida.Size = new Size(571, 533);
-            groupBoxSalida.TabIndex = 29;
-            groupBoxSalida.TabStop = false;
-            groupBoxSalida.Text = "Registrar Salida de Dinero";
+            this.groupBoxSalida.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBoxSalida.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(250)))), ((int)(((byte)(240)))));
+            this.groupBoxSalida.Controls.Add(this.lblTipoSalida);
+            this.groupBoxSalida.Controls.Add(this.cmbTipoSalida);
+            this.groupBoxSalida.Controls.Add(this.lblMotivoSalida);
+            this.groupBoxSalida.Controls.Add(this.btnRegistrarSalida);
+            this.groupBoxSalida.Controls.Add(this.cmbMotivoSalida);
+            this.groupBoxSalida.Controls.Add(this.numMontoSalida);
+            this.groupBoxSalida.Controls.Add(this.lblMontoSalida);
+            this.groupBoxSalida.Controls.Add(this.lblDetalleSalida);
+            this.groupBoxSalida.Controls.Add(this.txtOtroMotivo);
+            this.groupBoxSalida.Controls.Add(this.cmbDetalleSalida);
+            this.groupBoxSalida.Controls.Add(this.txtProveedor);
+            this.groupBoxSalida.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.groupBoxSalida.Location = new System.Drawing.Point(432, 196);
+            this.groupBoxSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxSalida.Name = "groupBoxSalida";
+            this.groupBoxSalida.Padding = new System.Windows.Forms.Padding(11, 13, 11, 13);
+            this.groupBoxSalida.Size = new System.Drawing.Size(571, 533);
+            this.groupBoxSalida.TabIndex = 29;
+            this.groupBoxSalida.TabStop = false;
+            this.groupBoxSalida.Text = "Registrar Salida de Dinero";
             // 
             // lblTipoSalida
             // 
-            lblTipoSalida.AutoSize = true;
-            lblTipoSalida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblTipoSalida.ForeColor = Color.Black;
-            lblTipoSalida.Location = new Point(46, 267);
-            lblTipoSalida.Name = "lblTipoSalida";
-            lblTipoSalida.Size = new Size(110, 20);
-            lblTipoSalida.TabIndex = 10;
-            lblTipoSalida.Text = "Tipo de Salida:";
+            this.lblTipoSalida.AutoSize = true;
+            this.lblTipoSalida.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTipoSalida.ForeColor = System.Drawing.Color.Black;
+            this.lblTipoSalida.Location = new System.Drawing.Point(46, 267);
+            this.lblTipoSalida.Name = "lblTipoSalida";
+            this.lblTipoSalida.Size = new System.Drawing.Size(110, 20);
+            this.lblTipoSalida.TabIndex = 10;
+            this.lblTipoSalida.Text = "Tipo de Salida:";
             // 
             // cmbTipoSalida
             // 
-            cmbTipoSalida.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbTipoSalida.Font = new Font("Segoe UI", 9F);
-            cmbTipoSalida.FormattingEnabled = true;
-            cmbTipoSalida.Location = new Point(46, 293);
-            cmbTipoSalida.Margin = new Padding(3, 4, 3, 4);
-            cmbTipoSalida.Name = "cmbTipoSalida";
-            cmbTipoSalida.Size = new Size(220, 28);
-            cmbTipoSalida.TabIndex = 2;
+            this.cmbTipoSalida.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoSalida.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cmbTipoSalida.FormattingEnabled = true;
+            this.cmbTipoSalida.Location = new System.Drawing.Point(46, 293);
+            this.cmbTipoSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbTipoSalida.Name = "cmbTipoSalida";
+            this.cmbTipoSalida.Size = new System.Drawing.Size(220, 28);
+            this.cmbTipoSalida.TabIndex = 2;
             // 
             // lblMotivoSalida
             // 
-            lblMotivoSalida.AutoSize = true;
-            lblMotivoSalida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblMotivoSalida.ForeColor = Color.Black;
-            lblMotivoSalida.Location = new Point(46, 67);
-            lblMotivoSalida.Name = "lblMotivoSalida";
-            lblMotivoSalida.Size = new Size(63, 20);
-            lblMotivoSalida.TabIndex = 1;
-            lblMotivoSalida.Text = "Motivo:";
+            this.lblMotivoSalida.AutoSize = true;
+            this.lblMotivoSalida.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblMotivoSalida.ForeColor = System.Drawing.Color.Black;
+            this.lblMotivoSalida.Location = new System.Drawing.Point(46, 67);
+            this.lblMotivoSalida.Name = "lblMotivoSalida";
+            this.lblMotivoSalida.Size = new System.Drawing.Size(63, 20);
+            this.lblMotivoSalida.TabIndex = 1;
+            this.lblMotivoSalida.Text = "Motivo:";
             // 
             // btnRegistrarSalida
             // 
-            btnRegistrarSalida.BackColor = Color.FromArgb(242, 174, 212);
-            btnRegistrarSalida.FlatAppearance.BorderSize = 0;
-            btnRegistrarSalida.FlatStyle = FlatStyle.Flat;
-            btnRegistrarSalida.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            btnRegistrarSalida.ForeColor = Color.Black;
-            btnRegistrarSalida.ImageKey = "add.png";
-            btnRegistrarSalida.ImageList = imageListIcons;
-            btnRegistrarSalida.Location = new Point(174, 400);
-            btnRegistrarSalida.Margin = new Padding(3, 4, 3, 4);
-            btnRegistrarSalida.Name = "btnRegistrarSalida";
-            btnRegistrarSalida.Padding = new Padding(11, 0, 0, 0);
-            btnRegistrarSalida.Size = new Size(225, 53);
-            btnRegistrarSalida.TabIndex = 4;
-            btnRegistrarSalida.Text = " Registrar Salida";
-            btnRegistrarSalida.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnRegistrarSalida.UseVisualStyleBackColor = false;
-            btnRegistrarSalida.Click += btnRegistrarSalida_Click;
+            this.btnRegistrarSalida.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(174)))), ((int)(((byte)(212)))));
+            this.btnRegistrarSalida.FlatAppearance.BorderSize = 0;
+            this.btnRegistrarSalida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegistrarSalida.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnRegistrarSalida.ForeColor = System.Drawing.Color.Black;
+            this.btnRegistrarSalida.ImageKey = "add.png";
+            this.btnRegistrarSalida.ImageList = this.imageListIcons;
+            this.btnRegistrarSalida.Location = new System.Drawing.Point(174, 400);
+            this.btnRegistrarSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnRegistrarSalida.Name = "btnRegistrarSalida";
+            this.btnRegistrarSalida.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
+            this.btnRegistrarSalida.Size = new System.Drawing.Size(225, 53);
+            this.btnRegistrarSalida.TabIndex = 4;
+            this.btnRegistrarSalida.Text = " Registrar Salida";
+            this.btnRegistrarSalida.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRegistrarSalida.UseVisualStyleBackColor = false;
             // 
             // cmbMotivoSalida
             // 
-            cmbMotivoSalida.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbMotivoSalida.Font = new Font("Segoe UI", 9F);
-            cmbMotivoSalida.FormattingEnabled = true;
-            cmbMotivoSalida.Location = new Point(46, 93);
-            cmbMotivoSalida.Margin = new Padding(3, 4, 3, 4);
-            cmbMotivoSalida.Name = "cmbMotivoSalida";
-            cmbMotivoSalida.Size = new Size(479, 28);
-            cmbMotivoSalida.TabIndex = 0;
-            cmbMotivoSalida.SelectedIndexChanged += cmbMotivoSalida_SelectedIndexChanged;
+            this.cmbMotivoSalida.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMotivoSalida.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cmbMotivoSalida.FormattingEnabled = true;
+            this.cmbMotivoSalida.Location = new System.Drawing.Point(46, 93);
+            this.cmbMotivoSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbMotivoSalida.Name = "cmbMotivoSalida";
+            this.cmbMotivoSalida.Size = new System.Drawing.Size(479, 28);
+            this.cmbMotivoSalida.TabIndex = 0;
             // 
             // numMontoSalida
             // 
-            numMontoSalida.DecimalPlaces = 2;
-            numMontoSalida.Font = new Font("Segoe UI", 9F);
-            numMontoSalida.Location = new Point(305, 293);
-            numMontoSalida.Margin = new Padding(3, 4, 3, 4);
-            numMontoSalida.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
-            numMontoSalida.Name = "numMontoSalida";
-            numMontoSalida.Size = new Size(221, 27);
-            numMontoSalida.TabIndex = 3;
-            numMontoSalida.Enter += numMontoSalida_Enter;
-            numMontoSalida.KeyDown += numMontoSalida_KeyDown;
+            this.numMontoSalida.DecimalPlaces = 2;
+            this.numMontoSalida.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.numMontoSalida.Location = new System.Drawing.Point(305, 293);
+            this.numMontoSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numMontoSalida.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numMontoSalida.Name = "numMontoSalida";
+            this.numMontoSalida.Size = new System.Drawing.Size(221, 27);
+            this.numMontoSalida.TabIndex = 3;
             // 
             // lblMontoSalida
             // 
-            lblMontoSalida.AutoSize = true;
-            lblMontoSalida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblMontoSalida.ForeColor = Color.Black;
-            lblMontoSalida.Location = new Point(305, 267);
-            lblMontoSalida.Name = "lblMontoSalida";
-            lblMontoSalida.Size = new Size(60, 20);
-            lblMontoSalida.TabIndex = 7;
-            lblMontoSalida.Text = "Monto:";
+            this.lblMontoSalida.AutoSize = true;
+            this.lblMontoSalida.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblMontoSalida.ForeColor = System.Drawing.Color.Black;
+            this.lblMontoSalida.Location = new System.Drawing.Point(305, 267);
+            this.lblMontoSalida.Name = "lblMontoSalida";
+            this.lblMontoSalida.Size = new System.Drawing.Size(60, 20);
+            this.lblMontoSalida.TabIndex = 7;
+            this.lblMontoSalida.Text = "Monto:";
             // 
             // lblDetalleSalida
             // 
-            lblDetalleSalida.AutoSize = true;
-            lblDetalleSalida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblDetalleSalida.ForeColor = Color.Black;
-            lblDetalleSalida.Location = new Point(46, 167);
-            lblDetalleSalida.Name = "lblDetalleSalida";
-            lblDetalleSalida.Size = new Size(62, 20);
-            lblDetalleSalida.TabIndex = 3;
-            lblDetalleSalida.Text = "Detalle:";
+            this.lblDetalleSalida.AutoSize = true;
+            this.lblDetalleSalida.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblDetalleSalida.ForeColor = System.Drawing.Color.Black;
+            this.lblDetalleSalida.Location = new System.Drawing.Point(46, 167);
+            this.lblDetalleSalida.Name = "lblDetalleSalida";
+            this.lblDetalleSalida.Size = new System.Drawing.Size(62, 20);
+            this.lblDetalleSalida.TabIndex = 3;
+            this.lblDetalleSalida.Text = "Detalle:";
             // 
             // txtOtroMotivo
             // 
-            txtOtroMotivo.Font = new Font("Segoe UI", 9F);
-            txtOtroMotivo.Location = new Point(46, 193);
-            txtOtroMotivo.Margin = new Padding(3, 4, 3, 4);
-            txtOtroMotivo.Name = "txtOtroMotivo";
-            txtOtroMotivo.Size = new Size(479, 27);
-            txtOtroMotivo.TabIndex = 1;
-            txtOtroMotivo.KeyDown += txtOtroMotivo_KeyDown;
+            this.txtOtroMotivo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtOtroMotivo.Location = new System.Drawing.Point(46, 193);
+            this.txtOtroMotivo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtOtroMotivo.Name = "txtOtroMotivo";
+            this.txtOtroMotivo.Size = new System.Drawing.Size(479, 27);
+            this.txtOtroMotivo.TabIndex = 1;
             // 
             // cmbDetalleSalida
             // 
-            cmbDetalleSalida.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbDetalleSalida.Font = new Font("Segoe UI", 9F);
-            cmbDetalleSalida.FormattingEnabled = true;
-            cmbDetalleSalida.Location = new Point(46, 193);
-            cmbDetalleSalida.Margin = new Padding(3, 4, 3, 4);
-            cmbDetalleSalida.Name = "cmbDetalleSalida";
-            cmbDetalleSalida.Size = new Size(479, 28);
-            cmbDetalleSalida.TabIndex = 1;
-            cmbDetalleSalida.SelectedIndexChanged += cmbDetalleSalida_SelectedIndexChanged;
+            this.cmbDetalleSalida.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDetalleSalida.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cmbDetalleSalida.FormattingEnabled = true;
+            this.cmbDetalleSalida.Location = new System.Drawing.Point(46, 193);
+            this.cmbDetalleSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbDetalleSalida.Name = "cmbDetalleSalida";
+            this.cmbDetalleSalida.Size = new System.Drawing.Size(479, 28);
+            this.cmbDetalleSalida.TabIndex = 1;
             // 
             // txtProveedor
             // 
-            txtProveedor.Font = new Font("Segoe UI", 9F);
-            txtProveedor.Location = new Point(46, 193);
-            txtProveedor.Margin = new Padding(3, 4, 3, 4);
-            txtProveedor.Name = "txtProveedor";
-            txtProveedor.Size = new Size(479, 27);
-            txtProveedor.TabIndex = 1;
-            txtProveedor.KeyDown += txtProveedor_KeyDown;
+            this.txtProveedor.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtProveedor.Location = new System.Drawing.Point(46, 193);
+            this.txtProveedor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtProveedor.Name = "txtProveedor";
+            this.txtProveedor.Size = new System.Drawing.Size(479, 27);
+            this.txtProveedor.TabIndex = 1;
             // 
             // panelClockSalida
             // 
-            panelClockSalida.BackColor = Color.Black;
-            panelClockSalida.Controls.Add(lblClockSalida);
-            panelClockSalida.Location = new Point(15, 40);
-            panelClockSalida.Margin = new Padding(3, 4, 3, 4);
-            panelClockSalida.Name = "panelClockSalida";
-            panelClockSalida.Size = new Size(171, 53);
-            panelClockSalida.TabIndex = 28;
+            this.panelClockSalida.BackColor = System.Drawing.Color.Black;
+            this.panelClockSalida.Controls.Add(this.lblClockSalida);
+            this.panelClockSalida.Location = new System.Drawing.Point(15, 40);
+            this.panelClockSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelClockSalida.Name = "panelClockSalida";
+            this.panelClockSalida.Size = new System.Drawing.Size(171, 53);
+            this.panelClockSalida.TabIndex = 28;
             // 
             // lblClockSalida
             // 
-            lblClockSalida.Dock = DockStyle.Fill;
-            lblClockSalida.Font = new Font("Consolas", 20F, FontStyle.Bold);
-            lblClockSalida.ForeColor = Color.FromArgb(242, 226, 5);
-            lblClockSalida.Location = new Point(0, 0);
-            lblClockSalida.Name = "lblClockSalida";
-            lblClockSalida.Size = new Size(171, 53);
-            lblClockSalida.TabIndex = 21;
-            lblClockSalida.Text = "00:00:00";
-            lblClockSalida.TextAlign = ContentAlignment.MiddleCenter;
+            this.lblClockSalida.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblClockSalida.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Bold);
+            this.lblClockSalida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(226)))), ((int)(((byte)(5)))));
+            this.lblClockSalida.Location = new System.Drawing.Point(0, 0);
+            this.lblClockSalida.Name = "lblClockSalida";
+            this.lblClockSalida.Size = new System.Drawing.Size(171, 53);
+            this.lblClockSalida.TabIndex = 21;
+            this.lblClockSalida.Text = "00:00:00";
+            this.lblClockSalida.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox3
             // 
-            pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox3.Location = new Point(1081, 17);
-            pictureBox3.Margin = new Padding(3, 4, 3, 4);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(339, 99);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 27;
-            pictureBox3.TabStop = false;
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.Location = new System.Drawing.Point(1081, 17);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(339, 99);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 27;
+            this.pictureBox3.TabStop = false;
             // 
             // tabPageReporte
             // 
-            tabPageReporte.BackColor = Color.FromArgb(242, 224, 133);
-            tabPageReporte.Controls.Add(btnCerrarCaja);
-            tabPageReporte.Controls.Add(btnDescargarReporte);
-            tabPageReporte.Controls.Add(panelClockReporte);
-            tabPageReporte.Controls.Add(pictureBox2);
-            tabPageReporte.Controls.Add(lblTotalDelDia);
-            tabPageReporte.Controls.Add(groupBoxReporte);
-            tabPageReporte.ImageKey = "report.png";
-            tabPageReporte.Location = new Point(4, 29);
-            tabPageReporte.Margin = new Padding(3, 4, 3, 4);
-            tabPageReporte.Name = "tabPageReporte";
-            tabPageReporte.Padding = new Padding(11, 13, 11, 13);
-            tabPageReporte.Size = new Size(1437, 928);
-            tabPageReporte.TabIndex = 1;
-            tabPageReporte.Text = "Reporte del Día";
+            this.tabPageReporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(224)))), ((int)(((byte)(133)))));
+            this.tabPageReporte.Controls.Add(this.btnCerrarCaja);
+            this.tabPageReporte.Controls.Add(this.btnDescargarReporte);
+            this.tabPageReporte.Controls.Add(this.panelClockReporte);
+            this.tabPageReporte.Controls.Add(this.pictureBox2);
+            this.tabPageReporte.Controls.Add(this.lblTotalDelDia);
+            this.tabPageReporte.Controls.Add(this.groupBoxReporte);
+            this.tabPageReporte.ImageKey = "report.png";
+            this.tabPageReporte.Location = new System.Drawing.Point(4, 29);
+            this.tabPageReporte.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPageReporte.Name = "tabPageReporte";
+            this.tabPageReporte.Padding = new System.Windows.Forms.Padding(11, 13, 11, 13);
+            this.tabPageReporte.Size = new System.Drawing.Size(1437, 928);
+            this.tabPageReporte.TabIndex = 1;
+            this.tabPageReporte.Text = "Reporte del Día";
             // 
             // btnCerrarCaja
             // 
-            btnCerrarCaja.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCerrarCaja.BackColor = Color.FromArgb(255, 128, 128);
-            btnCerrarCaja.FlatAppearance.BorderSize = 0;
-            btnCerrarCaja.FlatStyle = FlatStyle.Flat;
-            btnCerrarCaja.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnCerrarCaja.ForeColor = Color.Black;
-            btnCerrarCaja.ImageKey = "cash.png";
-            btnCerrarCaja.ImageList = imageListIcons;
-            btnCerrarCaja.Location = new Point(15, 856);
-            btnCerrarCaja.Margin = new Padding(3, 4, 3, 4);
-            btnCerrarCaja.Name = "btnCerrarCaja";
-            btnCerrarCaja.Padding = new Padding(11, 0, 0, 0);
-            btnCerrarCaja.Size = new Size(171, 53);
-            btnCerrarCaja.TabIndex = 0;
-            btnCerrarCaja.Text = " Cerrar Caja";
-            btnCerrarCaja.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnCerrarCaja.UseVisualStyleBackColor = false;
-            btnCerrarCaja.Click += btnCerrarCaja_Click;
+            this.btnCerrarCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCerrarCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnCerrarCaja.FlatAppearance.BorderSize = 0;
+            this.btnCerrarCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrarCaja.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnCerrarCaja.ForeColor = System.Drawing.Color.Black;
+            this.btnCerrarCaja.ImageKey = "cash.png";
+            this.btnCerrarCaja.ImageList = this.imageListIcons;
+            this.btnCerrarCaja.Location = new System.Drawing.Point(15, 856);
+            this.btnCerrarCaja.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnCerrarCaja.Name = "btnCerrarCaja";
+            this.btnCerrarCaja.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
+            this.btnCerrarCaja.Size = new System.Drawing.Size(171, 53);
+            this.btnCerrarCaja.TabIndex = 0;
+            this.btnCerrarCaja.Text = " Cerrar Caja";
+            this.btnCerrarCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCerrarCaja.UseVisualStyleBackColor = false;
             // 
             // btnDescargarReporte
             // 
-            btnDescargarReporte.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnDescargarReporte.BackColor = Color.FromArgb(242, 174, 212);
-            btnDescargarReporte.FlatAppearance.BorderSize = 0;
-            btnDescargarReporte.FlatStyle = FlatStyle.Flat;
-            btnDescargarReporte.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnDescargarReporte.ForeColor = Color.Black;
-            btnDescargarReporte.ImageKey = "download.png";
-            btnDescargarReporte.ImageList = imageListIcons;
-            btnDescargarReporte.Location = new Point(193, 856);
-            btnDescargarReporte.Margin = new Padding(3, 4, 3, 4);
-            btnDescargarReporte.Name = "btnDescargarReporte";
-            btnDescargarReporte.Padding = new Padding(11, 0, 0, 0);
-            btnDescargarReporte.Size = new Size(206, 53);
-            btnDescargarReporte.TabIndex = 1;
-            btnDescargarReporte.Text = " Descargar Reporte";
-            btnDescargarReporte.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnDescargarReporte.UseVisualStyleBackColor = false;
-            btnDescargarReporte.Click += btnDescargarReporte_Click;
+            this.btnDescargarReporte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDescargarReporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(174)))), ((int)(((byte)(212)))));
+            this.btnDescargarReporte.FlatAppearance.BorderSize = 0;
+            this.btnDescargarReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDescargarReporte.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnDescargarReporte.ForeColor = System.Drawing.Color.Black;
+            this.btnDescargarReporte.ImageKey = "download.png";
+            this.btnDescargarReporte.ImageList = this.imageListIcons;
+            this.btnDescargarReporte.Location = new System.Drawing.Point(193, 856);
+            this.btnDescargarReporte.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnDescargarReporte.Name = "btnDescargarReporte";
+            this.btnDescargarReporte.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
+            this.btnDescargarReporte.Size = new System.Drawing.Size(206, 53);
+            this.btnDescargarReporte.TabIndex = 1;
+            this.btnDescargarReporte.Text = " Descargar Reporte";
+            this.btnDescargarReporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDescargarReporte.UseVisualStyleBackColor = false;
             // 
             // panelClockReporte
             // 
-            panelClockReporte.BackColor = Color.Black;
-            panelClockReporte.Controls.Add(lblClockReporte);
-            panelClockReporte.Location = new Point(15, 40);
-            panelClockReporte.Margin = new Padding(3, 4, 3, 4);
-            panelClockReporte.Name = "panelClockReporte";
-            panelClockReporte.Size = new Size(171, 53);
-            panelClockReporte.TabIndex = 22;
+            this.panelClockReporte.BackColor = System.Drawing.Color.Black;
+            this.panelClockReporte.Controls.Add(this.lblClockReporte);
+            this.panelClockReporte.Location = new System.Drawing.Point(15, 40);
+            this.panelClockReporte.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelClockReporte.Name = "panelClockReporte";
+            this.panelClockReporte.Size = new System.Drawing.Size(171, 53);
+            this.panelClockReporte.TabIndex = 22;
             // 
             // lblClockReporte
             // 
-            lblClockReporte.Dock = DockStyle.Fill;
-            lblClockReporte.Font = new Font("Consolas", 20F, FontStyle.Bold);
-            lblClockReporte.ForeColor = Color.FromArgb(242, 226, 5);
-            lblClockReporte.Location = new Point(0, 0);
-            lblClockReporte.Name = "lblClockReporte";
-            lblClockReporte.Size = new Size(171, 53);
-            lblClockReporte.TabIndex = 21;
-            lblClockReporte.Text = "00:00:00";
-            lblClockReporte.TextAlign = ContentAlignment.MiddleCenter;
+            this.lblClockReporte.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblClockReporte.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Bold);
+            this.lblClockReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(226)))), ((int)(((byte)(5)))));
+            this.lblClockReporte.Location = new System.Drawing.Point(0, 0);
+            this.lblClockReporte.Name = "lblClockReporte";
+            this.lblClockReporte.Size = new System.Drawing.Size(171, 53);
+            this.lblClockReporte.TabIndex = 21;
+            this.lblClockReporte.Text = "00:00:00";
+            this.lblClockReporte.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox2
             // 
-            pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(1081, 17);
-            pictureBox2.Margin = new Padding(3, 4, 3, 4);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(339, 99);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 20;
-            pictureBox2.TabStop = false;
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(1081, 17);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(339, 99);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 20;
+            this.pictureBox2.TabStop = false;
             // 
             // lblTotalDelDia
             // 
-            lblTotalDelDia.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            lblTotalDelDia.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            lblTotalDelDia.ForeColor = Color.Black;
-            lblTotalDelDia.Location = new Point(15, 873);
-            lblTotalDelDia.Name = "lblTotalDelDia";
-            lblTotalDelDia.Size = new Size(1406, 33);
-            lblTotalDelDia.TabIndex = 2;
-            lblTotalDelDia.Text = "TOTAL VENTAS: $0.00";
-            lblTotalDelDia.TextAlign = ContentAlignment.MiddleRight;
+            this.lblTotalDelDia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalDelDia.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.lblTotalDelDia.ForeColor = System.Drawing.Color.Black;
+            this.lblTotalDelDia.Location = new System.Drawing.Point(15, 873);
+            this.lblTotalDelDia.Name = "lblTotalDelDia";
+            this.lblTotalDelDia.Size = new System.Drawing.Size(1406, 33);
+            this.lblTotalDelDia.TabIndex = 2;
+            this.lblTotalDelDia.Text = "TOTAL VENTAS: $0.00";
+            this.lblTotalDelDia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBoxReporte
             // 
-            groupBoxReporte.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBoxReporte.Controls.Add(lstVentasDelDia);
-            groupBoxReporte.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBoxReporte.ForeColor = Color.Black;
-            groupBoxReporte.Location = new Point(15, 124);
-            groupBoxReporte.Margin = new Padding(3, 4, 3, 4);
-            groupBoxReporte.Name = "groupBoxReporte";
-            groupBoxReporte.Padding = new Padding(3, 4, 3, 4);
-            groupBoxReporte.Size = new Size(1406, 704);
-            groupBoxReporte.TabIndex = 21;
-            groupBoxReporte.TabStop = false;
-            groupBoxReporte.Text = "Movimientos del Día";
+            this.groupBoxReporte.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxReporte.Controls.Add(this.lstVentasDelDia);
+            this.groupBoxReporte.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBoxReporte.ForeColor = System.Drawing.Color.Black;
+            this.groupBoxReporte.Location = new System.Drawing.Point(15, 124);
+            this.groupBoxReporte.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxReporte.Name = "groupBoxReporte";
+            this.groupBoxReporte.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBoxReporte.Size = new System.Drawing.Size(1406, 704);
+            this.groupBoxReporte.TabIndex = 21;
+            this.groupBoxReporte.TabStop = false;
+            this.groupBoxReporte.Text = "Movimientos del Día";
             // 
             // lstVentasDelDia
             // 
-            lstVentasDelDia.Dock = DockStyle.Fill;
-            lstVentasDelDia.DrawMode = DrawMode.OwnerDrawFixed;
-            lstVentasDelDia.Font = new Font("Consolas", 9.75F);
-            lstVentasDelDia.FormattingEnabled = true;
-            lstVentasDelDia.ItemHeight = 15;
-            lstVentasDelDia.Location = new Point(3, 24);
-            lstVentasDelDia.Margin = new Padding(3, 4, 3, 4);
-            lstVentasDelDia.Name = "lstVentasDelDia";
-            lstVentasDelDia.Size = new Size(1400, 676);
-            lstVentasDelDia.TabIndex = 2;
-            lstVentasDelDia.DrawItem += lstVentasDelDia_DrawItem;
-            lstVentasDelDia.DoubleClick += lstVentasDelDia_DoubleClick;
+            this.lstVentasDelDia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstVentasDelDia.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lstVentasDelDia.Font = new System.Drawing.Font("Consolas", 9.75F);
+            this.lstVentasDelDia.FormattingEnabled = true;
+            this.lstVentasDelDia.ItemHeight = 15;
+            this.lstVentasDelDia.Location = new System.Drawing.Point(3, 24);
+            this.lstVentasDelDia.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lstVentasDelDia.Name = "lstVentasDelDia";
+            this.lstVentasDelDia.Size = new System.Drawing.Size(1400, 676);
+            this.lstVentasDelDia.TabIndex = 2;
             // 
             // timerClock
             // 
-            timerClock.Tick += timerClock_Tick;
+            this.timerClock.Enabled = true;
+            this.timerClock.Interval = 1000;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1445, 961);
-            Controls.Add(tabControlPrincipal);
-            KeyPreview = true;
-            Margin = new Padding(3, 4, 3, 4);
-            MinimumSize = new Size(912, 784);
-            Name = "Form1";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Punto de Venta - AnimallForrajería";
-            Load += Form1_Load;
-            KeyDown += Form1_KeyDown;
-            tabControlPrincipal.ResumeLayout(false);
-            tabPageVenta.ResumeLayout(false);
-            tabPageVenta.PerformLayout();
-            panelClockVenta.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            groupBoxDetalle.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)numImporte).EndInit();
-            tabPageSalida.ResumeLayout(false);
-            groupBoxSalida.ResumeLayout(false);
-            groupBoxSalida.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numMontoSalida).EndInit();
-            panelClockSalida.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPageReporte.ResumeLayout(false);
-            panelClockReporte.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            groupBoxReporte.ResumeLayout(false);
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1445, 961);
+            this.Controls.Add(this.tabControlPrincipal);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MinimumSize = new System.Drawing.Size(912, 784);
+            this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Punto de Venta - AnimallForrajería";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.tabControlPrincipal.ResumeLayout(false);
+            this.tabPageVenta.ResumeLayout(false);
+            this.tabPageVenta.PerformLayout();
+            this.panelClockVenta.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBoxDetalle.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numImporte)).EndInit();
+            this.tabPageSalida.ResumeLayout(false);
+            this.groupBoxSalida.ResumeLayout(false);
+            this.groupBoxSalida.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMontoSalida)).EndInit();
+            this.panelClockSalida.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.tabPageReporte.ResumeLayout(false);
+            this.panelClockReporte.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.groupBoxReporte.ResumeLayout(false);
+            this.ResumeLayout(false);
 
         }
 
@@ -713,8 +709,6 @@ namespace Animall.App
         private System.Windows.Forms.TabPage tabPageReporte;
         private System.Windows.Forms.Label lblTotalDelDia;
         private System.Windows.Forms.ListBox lstVentasDelDia;
-        private System.Windows.Forms.Label lblMetodoPago;
-        private System.Windows.Forms.ComboBox cmbMetodoPago;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.GroupBox groupBoxReporte;
@@ -742,6 +736,7 @@ namespace Animall.App
         private System.Windows.Forms.TextBox txtProveedor;
         private System.Windows.Forms.Label lblTipoSalida;
         private System.Windows.Forms.ComboBox cmbTipoSalida;
+        private System.Windows.Forms.Label lblMetodoPagoActual;
     }
 }
 

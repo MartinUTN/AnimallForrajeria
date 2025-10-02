@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
 
-namespace Animall.App
+namespace Animall.app
 {
     public partial class TicketForm : Form
     {
