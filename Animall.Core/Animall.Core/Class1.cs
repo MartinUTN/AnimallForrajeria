@@ -47,11 +47,19 @@ namespace Animall.Core
         }
     }
 
-    // --- ENUMS e INTERFACES (Sin cambios) ---
-    public enum Categoria { AlimentoBalanceado, Accesorios, HigieneYCuidado, SaludYBienestar, Varios }
+    // --- ENUMS e INTERFACES ---
+    public enum Categoria
+    {
+        Bazar,
+        ComidaParaGatos,
+        ComidaParaPerros,
+        Plásticos,
+        ProductosDeLimpieza,
+        Varios
+    }
     public enum MetodoPago { Efectivo, ViüMi, Transferencia }
     public enum MotivoSalida { Sueldo, Proveedor, Impuestos, Publicidad, Otro }
-    public enum TipoSalida { Caja, Banco }
+    public enum TipoSalida { Caja, NoCaja }
     public interface IMovimientoDiario
     {
         DateTime Fecha { get; }
@@ -59,7 +67,7 @@ namespace Animall.Core
         decimal Importe { get; }
     }
 
-    // --- CLASES DE DATOS (Sin cambios) ---
+    // --- CLASES DE DATOS ---
     public class ItemVenta
     {
         public Categoria Categoria { get; }
@@ -80,9 +88,9 @@ namespace Animall.Core
         {
             return cat switch
             {
-                Categoria.AlimentoBalanceado => "Alimento Balanceado",
-                Categoria.HigieneYCuidado => "Higiene y Cuidado",
-                Categoria.SaludYBienestar => "Salud y Bienestar",
+                Categoria.ComidaParaGatos => "Comida para Gatos",
+                Categoria.ComidaParaPerros => "Comida para Perros",
+                Categoria.ProductosDeLimpieza => "Productos de Limpieza",
                 _ => cat.ToString(),
             };
         }
@@ -90,12 +98,21 @@ namespace Animall.Core
     public class VentaRegistrada : IMovimientoDiario
     {
         public Guid Id { get; } = Guid.NewGuid();
+        public int NumeroVenta { get; } // <-- CAMBIO: Añadido para el ID secuencial del ticket
         public DateTime Fecha { get; } = DateTime.Now;
         public List<ItemVenta> Items { get; }
         public decimal Importe { get; }
         public MetodoPago MetodoPago { get; }
         public string Descripcion => $"Venta ({Items.Count} ítems)";
-        public VentaRegistrada(Venta venta) { Items = new List<ItemVenta>(venta.Items); Importe = venta.Total; MetodoPago = venta.MetodoPago; }
+
+        // <-- CAMBIO: Constructor actualizado para recibir el número de venta
+        public VentaRegistrada(Venta venta, int numeroVenta)
+        {
+            Items = new List<ItemVenta>(venta.Items);
+            Importe = venta.Total;
+            MetodoPago = venta.MetodoPago;
+            NumeroVenta = numeroVenta;
+        }
         public override string ToString()
         {
             string metodo = MetodoPago switch
@@ -115,9 +132,16 @@ namespace Animall.Core
         public string Detalle { get; }
         public decimal Importe { get; }
         public TipoSalida Tipo { get; }
-        public string Descripcion => $"SALIDA: {Motivo} - {Detalle}";
+        public string Descripcion => $"{Motivo} - {Detalle}";
         public SalidaDinero(MotivoSalida motivo, string detalle, decimal importe, TipoSalida tipo) { Motivo = motivo; Detalle = detalle; Importe = importe; Tipo = tipo; }
-        public static string ObtenerNombreAmigable(TipoSalida tipo) => tipo.ToString();
+        public static string ObtenerNombreAmigable(TipoSalida tipo)
+        {
+            return tipo switch
+            {
+                TipoSalida.NoCaja => "No Caja",
+                _ => tipo.ToString(),
+            };
+        }
         public override string ToString() => $"{Fecha:HH:mm:ss} | {Descripcion,-30} | {-Importe,10:C} | {ObtenerNombreAmigable(Tipo)}";
     }
     public class ReporteDiario
@@ -133,7 +157,7 @@ namespace Animall.Core
         public decimal TotalPorMetodoPago(MetodoPago metodo) => Movimientos.OfType<VentaRegistrada>().Where(v => v.MetodoPago == metodo).Sum(v => v.Importe);
     }
 
-    // --- SERVICIO DE TICKET (DISEÑO ANTIGUO RESTAURADO) ---
+    // --- SERVICIO DE TICKET ---
     public static class ServicioTicket
     {
         public static string GenerarTicket(VentaRegistrada venta)
@@ -144,10 +168,11 @@ namespace Animall.Core
             const int nameWidth = totalWidth - priceWidth;
 
             sb.AppendLine("***********************************");
-            sb.AppendLine("****** AnimallForrajería   ******");
+            sb.AppendLine("****** AnimallForrajería ******");
             sb.AppendLine("***********************************");
             sb.AppendLine($"Fecha: {venta.Fecha:dd/MM/yyyy HH:mm:ss}");
-            sb.AppendLine($"Ticket ID: {venta.Id}");
+            // <-- CAMBIO: Se usa el nuevo número de venta secuencial
+            sb.AppendLine($"Ticket Nro: {venta.NumeroVenta}");
             sb.AppendLine($"Método de Pago: {venta.MetodoPago}");
             sb.AppendLine("-----------------------------------");
             sb.AppendLine("DETALLE:");
@@ -171,14 +196,14 @@ namespace Animall.Core
             sb.AppendLine(totalLabel.PadRight(nameWidth) + totalFormateado.PadLeft(priceWidth));
             sb.AppendLine("-----------------------------------");
             sb.AppendLine();
-            sb.AppendLine("      ¡Gracias por su compra!      ");
+            sb.AppendLine(" ¡Gracias por su compra! ");
             sb.AppendLine("***********************************");
 
             return sb.ToString();
         }
     }
 
-    // --- SERVICIO DE REPORTE PDF (DISEÑO ANTIGUO RESTAURADO) ---
+    // --- SERVICIO DE REPORTE PDF (Sin cambios) ---
     public static class ServicioReportePdf
     {
         public static void GenerarReporte(ReporteDiario reporte, string filePath)
@@ -222,7 +247,6 @@ namespace Animall.Core
         private static double DibujarTablaVentas(XGraphics gfx, string titulo, IEnumerable<VentaRegistrada> ventas, double yPoint, PdfPage page, XFont fontSubtitulo, XFont fontHeader, XFont fontNormal, XFont fontTotal)
         {
             double leftMargin = 40;
-            double pageLimit = page.Width.Point - leftMargin;
             double idColX = leftMargin;
             double horaColX = 80;
             double descColX = 160;
@@ -230,12 +254,12 @@ namespace Animall.Core
 
             gfx.DrawString(titulo, fontSubtitulo, XBrushes.Black, new XRect(leftMargin, yPoint, 0, 0), XStringFormats.BaseLineLeft);
             yPoint += 20;
-            gfx.DrawLine(XPens.Black, leftMargin, yPoint, pageLimit, yPoint);
+            gfx.DrawLine(XPens.Black, leftMargin, yPoint, importeAlignX, yPoint);
             yPoint += 15;
 
-            gfx.DrawString("ID", fontHeader, XBrushes.Black, idColX, yPoint);
-            gfx.DrawString("Hora", fontHeader, XBrushes.Black, horaColX, yPoint);
-            gfx.DrawString("Descripción", fontHeader, XBrushes.Black, descColX, yPoint);
+            gfx.DrawString("ID", fontHeader, XBrushes.Black, new XRect(idColX, yPoint, 0, 0), XStringFormats.TopLeft);
+            gfx.DrawString("Hora", fontHeader, XBrushes.Black, new XRect(horaColX, yPoint, 0, 0), XStringFormats.TopLeft);
+            gfx.DrawString("Descripción", fontHeader, XBrushes.Black, new XRect(descColX, yPoint, 0, 0), XStringFormats.TopLeft);
             gfx.DrawString("Monto", fontHeader, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
             yPoint += 15;
 
@@ -246,23 +270,25 @@ namespace Animall.Core
             }
             else
             {
+                int ventaCounter = 1;
                 foreach (var v in ventas)
                 {
-                    gfx.DrawString(v.Id.ToString(), fontNormal, XBrushes.Black, idColX, yPoint);
-                    gfx.DrawString(v.Fecha.ToString("HH:mm:ss"), fontNormal, XBrushes.Black, horaColX, yPoint);
-                    gfx.DrawString(v.Descripcion, fontNormal, XBrushes.Black, descColX, yPoint);
+                    gfx.DrawString(ventaCounter.ToString(), fontNormal, XBrushes.Black, new XRect(idColX, yPoint, 0, 0), XStringFormats.TopLeft);
+                    gfx.DrawString(v.Fecha.ToString("HH:mm:ss"), fontNormal, XBrushes.Black, new XRect(horaColX, yPoint, 0, 0), XStringFormats.TopLeft);
+                    gfx.DrawString(v.Descripcion, fontNormal, XBrushes.Black, new XRect(descColX, yPoint, 0, 0), XStringFormats.TopLeft);
                     gfx.DrawString(v.Importe.ToString("C"), fontNormal, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
                     yPoint += 15;
+                    ventaCounter++;
                 }
             }
 
             yPoint += 10;
-            gfx.DrawLine(XPens.Black, pageLimit - 200, yPoint, pageLimit, yPoint);
+            gfx.DrawLine(XPens.Black, descColX, yPoint, importeAlignX, yPoint);
             yPoint += 5;
 
             var totalVentas = ventas.Sum(v => v.Importe);
-            gfx.DrawString("TOTAL VENTAS:", fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit - 100, 0), XStringFormats.TopRight);
-            gfx.DrawString(totalVentas.ToString("C"), fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit, 0), XStringFormats.TopRight);
+            gfx.DrawString("TOTAL VENTAS:", fontTotal, XBrushes.Black, new XRect(0, yPoint, importeAlignX - 80, 0), XStringFormats.TopRight);
+            gfx.DrawString(totalVentas.ToString("C"), fontTotal, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
             yPoint += 25;
 
             return yPoint;
@@ -271,7 +297,6 @@ namespace Animall.Core
         private static double DibujarTablaSalidas(XGraphics gfx, string titulo, IEnumerable<SalidaDinero> salidas, double yPoint, PdfPage page, XFont fontSubtitulo, XFont fontHeader, XFont fontNormal, XFont fontTotal)
         {
             double leftMargin = 40;
-            double pageLimit = page.Width.Point - leftMargin;
             double idColX = leftMargin;
             double horaColX = 80;
             double descColX = 160;
@@ -280,13 +305,13 @@ namespace Animall.Core
 
             gfx.DrawString(titulo, fontSubtitulo, XBrushes.Black, new XRect(leftMargin, yPoint, 0, 0), XStringFormats.BaseLineLeft);
             yPoint += 20;
-            gfx.DrawLine(XPens.Black, leftMargin, yPoint, pageLimit, yPoint);
+            gfx.DrawLine(XPens.Black, leftMargin, yPoint, importeAlignX, yPoint);
             yPoint += 15;
 
-            gfx.DrawString("ID", fontHeader, XBrushes.Black, idColX, yPoint);
-            gfx.DrawString("Hora", fontHeader, XBrushes.Black, horaColX, yPoint);
-            gfx.DrawString("Descripción", fontHeader, XBrushes.Black, descColX, yPoint);
-            gfx.DrawString("Tipo", fontHeader, XBrushes.Black, tipoColX, yPoint);
+            gfx.DrawString("ID", fontHeader, XBrushes.Black, new XRect(idColX, yPoint, 0, 0), XStringFormats.TopLeft);
+            gfx.DrawString("Hora", fontHeader, XBrushes.Black, new XRect(horaColX, yPoint, 0, 0), XStringFormats.TopLeft);
+            gfx.DrawString("Descripción", fontHeader, XBrushes.Black, new XRect(descColX, yPoint, 0, 0), XStringFormats.TopLeft);
+            gfx.DrawString("Tipo", fontHeader, XBrushes.Black, new XRect(tipoColX, yPoint, 0, 0), XStringFormats.TopLeft);
             gfx.DrawString("Monto", fontHeader, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
             yPoint += 15;
 
@@ -297,24 +322,26 @@ namespace Animall.Core
             }
             else
             {
+                int salidaCounter = 1;
                 foreach (var s in salidas)
                 {
-                    gfx.DrawString(s.Id.ToString(), fontNormal, XBrushes.Black, idColX, yPoint);
-                    gfx.DrawString(s.Fecha.ToString("HH:mm:ss"), fontNormal, XBrushes.Black, horaColX, yPoint);
-                    gfx.DrawString(s.Descripcion, fontNormal, XBrushes.Black, descColX, yPoint);
-                    gfx.DrawString(SalidaDinero.ObtenerNombreAmigable(s.Tipo), fontNormal, XBrushes.Black, tipoColX, yPoint);
+                    gfx.DrawString(salidaCounter.ToString(), fontNormal, XBrushes.Black, new XRect(idColX, yPoint, 0, 0), XStringFormats.TopLeft);
+                    gfx.DrawString(s.Fecha.ToString("HH:mm:ss"), fontNormal, XBrushes.Black, new XRect(horaColX, yPoint, 0, 0), XStringFormats.TopLeft);
+                    gfx.DrawString(s.Descripcion, fontNormal, XBrushes.Black, new XRect(descColX, yPoint, 0, 0), XStringFormats.TopLeft);
+                    gfx.DrawString(SalidaDinero.ObtenerNombreAmigable(s.Tipo), fontNormal, XBrushes.Black, new XRect(tipoColX, yPoint, 0, 0), XStringFormats.TopLeft);
                     gfx.DrawString(s.Importe.ToString("C"), fontNormal, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
                     yPoint += 15;
+                    salidaCounter++;
                 }
             }
 
             yPoint += 10;
-            gfx.DrawLine(XPens.Black, pageLimit - 200, yPoint, pageLimit, yPoint);
+            gfx.DrawLine(XPens.Black, descColX, yPoint, importeAlignX, yPoint);
             yPoint += 5;
 
             var totalSalidas = salidas.Sum(s => s.Importe);
-            gfx.DrawString("TOTAL SALIDAS:", fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit - 100, 0), XStringFormats.TopRight);
-            gfx.DrawString(totalSalidas.ToString("C"), fontTotal, XBrushes.Black, new XRect(0, yPoint, pageLimit, 0), XStringFormats.TopRight);
+            gfx.DrawString("TOTAL SALIDAS:", fontTotal, XBrushes.Black, new XRect(0, yPoint, importeAlignX - 80, 0), XStringFormats.TopRight);
+            gfx.DrawString(totalSalidas.ToString("C"), fontTotal, XBrushes.Black, new XRect(0, yPoint, importeAlignX, 0), XStringFormats.TopRight);
             yPoint += 25;
 
             return yPoint;

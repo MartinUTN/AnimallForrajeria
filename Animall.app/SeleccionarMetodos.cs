@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace Animall.app
 {
-    public partial class SelectMethodForm : Form
+    public partial class SeleccionarMetodos : Form
     {
         public string SelectedMethod { get; private set; }
 
-        public SelectMethodForm()
+        public SeleccionarMetodos()
         {
             InitializeComponent();
             SelectedMethod = "";

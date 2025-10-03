@@ -1,6 +1,6 @@
 ﻿namespace Animall.app
 {
-    partial class SelectMethodForm
+    partial class SeleccionarMetodos
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -17,7 +17,7 @@
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectMethodForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SeleccionarMetodos));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblInstructions = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();

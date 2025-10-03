@@ -4,49 +4,55 @@ using System.Windows.Forms;
 
 namespace Animall.app
 {
-    public partial class DineroInicialForm : Form
+    public partial class ConfirmacionReinicioForm : Form
     {
-        // Variables para arrastrar el formulario sin bordes
+        // --- AÑADIDO: Variables para arrastrar el formulario sin bordes ---
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
 
-        public decimal DineroInicial { get; private set; }
-
-        public DineroInicialForm()
+        public ConfirmacionReinicioForm()
         {
             InitializeComponent();
             this.Icon = new Icon("logo.ico");
         }
 
-        private void btnIniciar_Click(object sender, EventArgs e)
+        private void btnAceptar_Click(object sender, EventArgs e)
         {
-            ConfirmarInicio();
+            if (txtConfirmacion.Text == "1111")
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("El código ingresado no es correcto.", "Error de Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtConfirmacion.Focus();
+                txtConfirmacion.SelectAll();
+            }
         }
 
-        private void numDineroInicial_KeyDown(object sender, KeyEventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void txtConfirmacion_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                ConfirmarInicio();
+                btnAceptar_Click(sender, e);
                 e.SuppressKeyPress = true;
             }
         }
 
-        private void ConfirmarInicio()
+        private void ConfirmacionReinicioForm_Load(object sender, EventArgs e)
         {
-            this.DineroInicial = numDineroInicial.Value;
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            txtConfirmacion.Focus();
         }
 
-        private void DineroInicialForm_Load(object sender, EventArgs e)
-        {
-            numDineroInicial.Focus();
-            numDineroInicial.Select(0, numDineroInicial.Text.Length);
-        }
-
-        // --- MÉTODOS PARA ARRASTRAR FORMULARIO SIN BORDES ---
+        // --- AÑADIDO: Métodos para manejar el arrastre y cierre del formulario ---
 
         private void pnlTitleBar_MouseDown(object sender, MouseEventArgs e)
         {

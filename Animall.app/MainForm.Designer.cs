@@ -72,6 +72,9 @@
             this.groupBoxReporte = new System.Windows.Forms.GroupBox();
             this.lstVentasDelDia = new System.Windows.Forms.ListBox();
             this.timerClock = new System.Windows.Forms.Timer(this.components);
+            this.pnlTitleBar = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
             this.tabControlPrincipal.SuspendLayout();
             this.tabPageVenta.SuspendLayout();
             this.panelClockVenta.SuspendLayout();
@@ -87,20 +90,23 @@
             this.panelClockReporte.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBoxReporte.SuspendLayout();
+            this.pnlTitleBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlPrincipal
             // 
+            this.tabControlPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlPrincipal.Controls.Add(this.tabPageVenta);
             this.tabControlPrincipal.Controls.Add(this.tabPageSalida);
             this.tabControlPrincipal.Controls.Add(this.tabPageReporte);
-            this.tabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlPrincipal.ImageList = this.imageListIcons;
-            this.tabControlPrincipal.Location = new System.Drawing.Point(0, 0);
+            this.tabControlPrincipal.Location = new System.Drawing.Point(0, 30);
             this.tabControlPrincipal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControlPrincipal.Name = "tabControlPrincipal";
             this.tabControlPrincipal.SelectedIndex = 0;
-            this.tabControlPrincipal.Size = new System.Drawing.Size(1445, 961);
+            this.tabControlPrincipal.Size = new System.Drawing.Size(1445, 931);
             this.tabControlPrincipal.TabIndex = 0;
             // 
             // tabPageVenta
@@ -122,7 +128,7 @@
             this.tabPageVenta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageVenta.Name = "tabPageVenta";
             this.tabPageVenta.Padding = new System.Windows.Forms.Padding(11, 13, 11, 13);
-            this.tabPageVenta.Size = new System.Drawing.Size(1437, 928);
+            this.tabPageVenta.Size = new System.Drawing.Size(1437, 898);
             this.tabPageVenta.TabIndex = 0;
             this.tabPageVenta.Text = "Nueva Venta";
             // 
@@ -130,11 +136,12 @@
             // 
             this.lblMetodoPagoActual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMetodoPagoActual.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblMetodoPagoActual.Location = new System.Drawing.Point(925, 870);
+            // <-- CAMBIO: Posición de la etiqueta ajustada para evitar superposición
+            this.lblMetodoPagoActual.Location = new System.Drawing.Point(780, 841);
             this.lblMetodoPagoActual.Name = "lblMetodoPagoActual";
-            this.lblMetodoPagoActual.Size = new System.Drawing.Size(263, 23);
+            this.lblMetodoPagoActual.Size = new System.Drawing.Size(360, 23);
             this.lblMetodoPagoActual.TabIndex = 22;
-            this.lblMetodoPagoActual.Text = "Método de Pago: Efectivo";
+            this.lblMetodoPagoActual.Text = "Método de Pago: Efectivo (CTRL)";
             this.lblMetodoPagoActual.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panelClockVenta
@@ -181,13 +188,12 @@
             this.btnFinalizar.ForeColor = System.Drawing.Color.Black;
             this.btnFinalizar.ImageKey = "check.png";
             this.btnFinalizar.ImageList = this.imageListIcons;
-            this.btnFinalizar.Location = new System.Drawing.Point(1195, 845);
+            this.btnFinalizar.Location = new System.Drawing.Point(1145, 816);
             this.btnFinalizar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnFinalizar.Name = "btnFinalizar";
-            this.btnFinalizar.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
-            this.btnFinalizar.Size = new System.Drawing.Size(225, 53);
+            this.btnFinalizar.Size = new System.Drawing.Size(275, 53);
             this.btnFinalizar.TabIndex = 4;
-            this.btnFinalizar.Text = " Finalizar Venta (F5)";
+            this.btnFinalizar.Text = "Finalizar Venta (ALT)";
             this.btnFinalizar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnFinalizar.UseVisualStyleBackColor = false;
             this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
@@ -210,7 +216,7 @@
             this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold);
             this.lblTotal.ForeColor = System.Drawing.Color.Black;
-            this.lblTotal.Location = new System.Drawing.Point(15, 856);
+            this.lblTotal.Location = new System.Drawing.Point(15, 827);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(536, 49);
             this.lblTotal.TabIndex = 15;
@@ -229,7 +235,7 @@
             this.groupBoxDetalle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxDetalle.Name = "groupBoxDetalle";
             this.groupBoxDetalle.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxDetalle.Size = new System.Drawing.Size(1406, 704);
+            this.groupBoxDetalle.Size = new System.Drawing.Size(1406, 675);
             this.groupBoxDetalle.TabIndex = 14;
             this.groupBoxDetalle.TabStop = false;
             this.groupBoxDetalle.Text = "Detalle de Venta (Seleccione un ítem y presione SUPR para eliminar)";
@@ -243,7 +249,7 @@
             this.lstItemsVenta.Location = new System.Drawing.Point(3, 24);
             this.lstItemsVenta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstItemsVenta.Name = "lstItemsVenta";
-            this.lstItemsVenta.Size = new System.Drawing.Size(1400, 676);
+            this.lstItemsVenta.Size = new System.Drawing.Size(1400, 647);
             this.lstItemsVenta.TabIndex = 5;
             // 
             // btnAgregar
@@ -328,7 +334,7 @@
             this.tabPageSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageSalida.Name = "tabPageSalida";
             this.tabPageSalida.Padding = new System.Windows.Forms.Padding(11, 13, 11, 13);
-            this.tabPageSalida.Size = new System.Drawing.Size(1437, 928);
+            this.tabPageSalida.Size = new System.Drawing.Size(1437, 898);
             this.tabPageSalida.TabIndex = 2;
             this.tabPageSalida.Text = "Registrar Salida";
             // 
@@ -348,7 +354,7 @@
             this.groupBoxSalida.Controls.Add(this.cmbDetalleSalida);
             this.groupBoxSalida.Controls.Add(this.txtProveedor);
             this.groupBoxSalida.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.groupBoxSalida.Location = new System.Drawing.Point(432, 196);
+            this.groupBoxSalida.Location = new System.Drawing.Point(433, 182);
             this.groupBoxSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxSalida.Name = "groupBoxSalida";
             this.groupBoxSalida.Padding = new System.Windows.Forms.Padding(11, 13, 11, 13);
@@ -536,7 +542,7 @@
             this.tabPageReporte.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageReporte.Name = "tabPageReporte";
             this.tabPageReporte.Padding = new System.Windows.Forms.Padding(11, 13, 11, 13);
-            this.tabPageReporte.Size = new System.Drawing.Size(1437, 928);
+            this.tabPageReporte.Size = new System.Drawing.Size(1437, 898);
             this.tabPageReporte.TabIndex = 1;
             this.tabPageReporte.Text = "Reporte del Día";
             // 
@@ -550,7 +556,7 @@
             this.btnCerrarCaja.ForeColor = System.Drawing.Color.Black;
             this.btnCerrarCaja.ImageKey = "cash.png";
             this.btnCerrarCaja.ImageList = this.imageListIcons;
-            this.btnCerrarCaja.Location = new System.Drawing.Point(15, 856);
+            this.btnCerrarCaja.Location = new System.Drawing.Point(228, 827);
             this.btnCerrarCaja.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCerrarCaja.Name = "btnCerrarCaja";
             this.btnCerrarCaja.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
@@ -571,7 +577,7 @@
             this.btnDescargarReporte.ForeColor = System.Drawing.Color.Black;
             this.btnDescargarReporte.ImageKey = "download.png";
             this.btnDescargarReporte.ImageList = this.imageListIcons;
-            this.btnDescargarReporte.Location = new System.Drawing.Point(193, 856);
+            this.btnDescargarReporte.Location = new System.Drawing.Point(15, 827);
             this.btnDescargarReporte.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDescargarReporte.Name = "btnDescargarReporte";
             this.btnDescargarReporte.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
@@ -622,7 +628,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotalDelDia.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.lblTotalDelDia.ForeColor = System.Drawing.Color.Black;
-            this.lblTotalDelDia.Location = new System.Drawing.Point(15, 873);
+            this.lblTotalDelDia.Location = new System.Drawing.Point(15, 844);
             this.lblTotalDelDia.Name = "lblTotalDelDia";
             this.lblTotalDelDia.Size = new System.Drawing.Size(1406, 33);
             this.lblTotalDelDia.TabIndex = 2;
@@ -641,7 +647,7 @@
             this.groupBoxReporte.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBoxReporte.Name = "groupBoxReporte";
             this.groupBoxReporte.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBoxReporte.Size = new System.Drawing.Size(1406, 704);
+            this.groupBoxReporte.Size = new System.Drawing.Size(1406, 675);
             this.groupBoxReporte.TabIndex = 21;
             this.groupBoxReporte.TabStop = false;
             this.groupBoxReporte.Text = "Movimientos del Día (Doble clic para ver ticket)";
@@ -656,7 +662,7 @@
             this.lstVentasDelDia.Location = new System.Drawing.Point(3, 24);
             this.lstVentasDelDia.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstVentasDelDia.Name = "lstVentasDelDia";
-            this.lstVentasDelDia.Size = new System.Drawing.Size(1400, 676);
+            this.lstVentasDelDia.Size = new System.Drawing.Size(1400, 647);
             this.lstVentasDelDia.TabIndex = 2;
             this.lstVentasDelDia.DoubleClick += new System.EventHandler(this.lstVentasDelDia_DoubleClick);
             // 
@@ -665,20 +671,61 @@
             this.timerClock.Enabled = true;
             this.timerClock.Interval = 1000;
             // 
-            // Form1
+            // pnlTitleBar
+            // 
+            this.pnlTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(194)))), ((int)(((byte)(103)))));
+            this.pnlTitleBar.Controls.Add(this.lblTitle);
+            this.pnlTitleBar.Controls.Add(this.btnClose);
+            this.pnlTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTitleBar.Location = new System.Drawing.Point(0, 0);
+            this.pnlTitleBar.Name = "pnlTitleBar";
+            this.pnlTitleBar.Size = new System.Drawing.Size(1445, 30);
+            this.pnlTitleBar.TabIndex = 1;
+            this.pnlTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlTitleBar_MouseDown);
+            this.pnlTitleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlTitleBar_MouseMove);
+            this.pnlTitleBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlTitleBar_MouseUp);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Location = new System.Drawing.Point(12, 6);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(243, 20);
+            this.lblTitle.TabIndex = 1;
+            this.lblTitle.Text = "Punto de Venta - AnimallForrajería";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnClose.Location = new System.Drawing.Point(1405, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(40, 30);
+            this.btnClose.TabIndex = 0;
+            this.btnClose.Text = "X";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1445, 961);
+            this.Controls.Add(this.pnlTitleBar);
             this.Controls.Add(this.tabControlPrincipal);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(912, 784);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Punto de Venta - AnimallForrajería";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.tabControlPrincipal.ResumeLayout(false);
             this.tabPageVenta.ResumeLayout(false);
             this.tabPageVenta.PerformLayout();
@@ -696,6 +743,8 @@
             this.panelClockReporte.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.groupBoxReporte.ResumeLayout(false);
+            this.pnlTitleBar.ResumeLayout(false);
+            this.pnlTitleBar.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -744,5 +793,9 @@
         private System.Windows.Forms.Label lblTipoSalida;
         private System.Windows.Forms.ComboBox cmbTipoSalida;
         private System.Windows.Forms.Label lblMetodoPagoActual;
+        private System.Windows.Forms.Panel pnlTitleBar;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label lblTitle;
     }
 }
+

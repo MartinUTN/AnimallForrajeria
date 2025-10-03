@@ -18,6 +18,11 @@ namespace Animall.app
         private decimal _dineroInicial;
         private MetodoPago _currentPaymentMethod = MetodoPago.Efectivo;
 
+        // Variables para arrastrar el formulario sin bordes
+        private bool dragging = false;
+        private Point dragCursorPoint;
+        private Point dragFormPoint;
+
         public MainForm(decimal dineroInicial)
         {
             InitializeComponent();
@@ -27,7 +32,7 @@ namespace Animall.app
             this.Icon = new Icon("logo.ico");
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             ConfigurarFormulario();
         }
@@ -103,7 +108,10 @@ namespace Animall.app
 
             _ventaActual.MetodoPago = _currentPaymentMethod;
 
-            var ventaParaRegistrar = new VentaRegistrada(_ventaActual);
+            // <-- CAMBIO: Se calcula el número de venta y se pasa al constructor
+            int numeroDeVenta = _reporteDiario.Movimientos.OfType<VentaRegistrada>().Count() + 1;
+            var ventaParaRegistrar = new VentaRegistrada(_ventaActual, numeroDeVenta);
+
             _reporteDiario.AgregarMovimiento(ventaParaRegistrar);
             ActualizarVistaReporte();
 
@@ -117,7 +125,7 @@ namespace Animall.app
             ActualizarVistaVenta();
 
             _currentPaymentMethod = MetodoPago.Efectivo;
-            lblMetodoPagoActual.Text = "Método de Pago: Efectivo";
+            lblMetodoPagoActual.Text = "Método de Pago: Efectivo (CTRL)";
         }
 
         private void ActualizarVistaVenta()
@@ -365,7 +373,13 @@ namespace Animall.app
 
             if (confirmResult == DialogResult.Yes)
             {
-                ReiniciarJornada();
+                using (var formConfirmacion = new ConfirmacionReinicioForm())
+                {
+                    if (formConfirmacion.ShowDialog() == DialogResult.OK)
+                    {
+                        ReiniciarJornada();
+                    }
+                }
             }
         }
 
@@ -472,9 +486,41 @@ namespace Animall.app
             }
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F5)
+            if (e.Control && !e.Alt && !e.Shift)
+            {
+                using (var seleccionarMetodosForm = new SeleccionarMetodos())
+                {
+                    if (seleccionarMetodosForm.ShowDialog() == DialogResult.OK)
+                    {
+                        char selected = 'E';
+                        if (!string.IsNullOrEmpty(seleccionarMetodosForm.SelectedMethod))
+                        {
+                            selected = seleccionarMetodosForm.SelectedMethod[0];
+                        }
+
+                        switch (selected)
+                        {
+                            case 'V':
+                                _currentPaymentMethod = MetodoPago.ViüMi;
+                                lblMetodoPagoActual.Text = "Método de Pago: ViüMi (CTRL)";
+                                break;
+                            case 'T':
+                                _currentPaymentMethod = MetodoPago.Transferencia;
+                                lblMetodoPagoActual.Text = "Método de Pago: Transferencia (CTRL)";
+                                break;
+                            case 'E':
+                            default:
+                                _currentPaymentMethod = MetodoPago.Efectivo;
+                                lblMetodoPagoActual.Text = "Método de Pago: Efectivo (CTRL)";
+                                break;
+                        }
+                    }
+                }
+                e.Handled = true;
+            }
+            else if (e.Alt && !e.Control && !e.Shift)
             {
                 btnFinalizar_Click(sender, e);
                 e.SuppressKeyPress = true;
@@ -485,38 +531,6 @@ namespace Animall.app
                 {
                     EliminarItemVenta();
                 }
-            }
-            else if (e.KeyCode == Keys.F1)
-            {
-                using (var selectMethodForm = new SelectMethodForm())
-                {
-                    if (selectMethodForm.ShowDialog() == DialogResult.OK)
-                    {
-                        char selected = 'E';
-                        if (!string.IsNullOrEmpty(selectMethodForm.SelectedMethod))
-                        {
-                            selected = selectMethodForm.SelectedMethod[0];
-                        }
-
-                        switch (selected)
-                        {
-                            case 'V':
-                                _currentPaymentMethod = MetodoPago.ViüMi;
-                                lblMetodoPagoActual.Text = "Método de Pago: ViüMi";
-                                break;
-                            case 'T':
-                                _currentPaymentMethod = MetodoPago.Transferencia;
-                                lblMetodoPagoActual.Text = "Método de Pago: Transferencia";
-                                break;
-                            case 'E':
-                            default:
-                                _currentPaymentMethod = MetodoPago.Efectivo;
-                                lblMetodoPagoActual.Text = "Método de Pago: Efectivo";
-                                break;
-                        }
-                    }
-                }
-                e.Handled = true;
             }
         }
 
@@ -539,6 +553,34 @@ namespace Animall.app
         }
 
         #endregion
+
+        // --- MÉTODOS PARA ARRASTRAR FORMULARIO SIN BORDES ---
+
+        private void pnlTitleBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = this.Location;
+        }
+
+        private void pnlTitleBar_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                this.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+        }
+
+        private void pnlTitleBar_MouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
 
