@@ -18,11 +18,6 @@ namespace Animall.app
         private decimal _dineroInicial;
         private MetodoPago _currentPaymentMethod = MetodoPago.Efectivo;
 
-        // Variables para arrastrar el formulario sin bordes
-        private bool dragging = false;
-        private Point dragCursorPoint;
-        private Point dragFormPoint;
-
         public MainForm(decimal dineroInicial)
         {
             InitializeComponent();
@@ -30,6 +25,8 @@ namespace Animall.app
             _ventaActual = new Venta();
             _reporteDiario = new ReporteDiario { DineroInicial = _dineroInicial };
             this.Icon = new Icon("logo.ico");
+
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -39,8 +36,6 @@ namespace Animall.app
 
         private void ConfigurarFormulario()
         {
-            this.Text = "Punto de Venta - AnimallForrajería";
-
             var friendlyCategories = Enum.GetValues(typeof(Categoria))
                 .Cast<Categoria>()
                 .Select(cat => new {
@@ -88,9 +83,11 @@ namespace Animall.app
                 }
                 var nuevoItem = new ItemVenta(categoriaSeleccionada, importe);
                 _ventaActual.AgregarItem(nuevoItem);
+
+                // // Actualiza la UI y prepara para el siguiente item.
                 ActualizarVistaVenta();
-                cmbCategorias.Focus();
-                numImporte.Value = 0;
+                numImporte.Value = 0; // // Limpia el importe
+                cmbCategorias.Focus(); // // Pone el foco de vuelta en la categoría
             }
             else
             {
@@ -108,7 +105,6 @@ namespace Animall.app
 
             _ventaActual.MetodoPago = _currentPaymentMethod;
 
-            // <-- CAMBIO: Se calcula el número de venta y se pasa al constructor
             int numeroDeVenta = _reporteDiario.Movimientos.OfType<VentaRegistrada>().Count() + 1;
             var ventaParaRegistrar = new VentaRegistrada(_ventaActual, numeroDeVenta);
 
@@ -458,9 +454,23 @@ namespace Animall.app
 
         private void cmbCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbCategorias.SelectedIndex != -1)
+            // // El foco ya no se cambia automáticamente.
+            // // El usuario debe presionar Enter para confirmar la selección y avanzar.
+        }
+
+        private void cmbCategorias_KeyDown(object sender, KeyEventArgs e)
+        {
+            // // Si la tecla presionada es Enter...
+            if (e.KeyCode == Keys.Enter)
             {
-                numImporte.Focus();
+                // // ...y hay una categoría válida seleccionada...
+                if (cmbCategorias.SelectedValue != null)
+                {
+                    // // ...movemos el foco al campo de importe.
+                    numImporte.Focus();
+                    // // Suprimimos el sonido "ding" de Windows.
+                    e.SuppressKeyPress = true;
+                }
             }
         }
 
@@ -488,6 +498,11 @@ namespace Animall.app
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
+            if (tabControlPrincipal.SelectedTab != tabPageVenta)
+            {
+                return;
+            }
+
             if (e.Control && !e.Alt && !e.Shift)
             {
                 using (var seleccionarMetodosForm = new SeleccionarMetodos())
@@ -553,34 +568,6 @@ namespace Animall.app
         }
 
         #endregion
-
-        // --- MÉTODOS PARA ARRASTRAR FORMULARIO SIN BORDES ---
-
-        private void pnlTitleBar_MouseDown(object sender, MouseEventArgs e)
-        {
-            dragging = true;
-            dragCursorPoint = Cursor.Position;
-            dragFormPoint = this.Location;
-        }
-
-        private void pnlTitleBar_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (dragging)
-            {
-                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
-                this.Location = Point.Add(dragFormPoint, new Size(dif));
-            }
-        }
-
-        private void pnlTitleBar_MouseUp(object sender, MouseEventArgs e)
-        {
-            dragging = false;
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
     }
 }
 
